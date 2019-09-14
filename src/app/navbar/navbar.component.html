@@ -1,0 +1,11 @@
+<app-header></app-header>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode= "side">
+        <mat-nav-list>
+            <a mat-list-item *ngFor="let link of links">{{link}}</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <button (click) = "sidenav.toggle()">></button>
+    </mat-sidenav-content>
+</mat-sidenav-container>
