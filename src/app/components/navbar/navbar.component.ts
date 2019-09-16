@@ -10,7 +10,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 
 export class NavbarComponent implements OnInit {
 
-  links = ["Resources", "Project", "Formula"];
   constructor() { }
 
   ngOnInit() {

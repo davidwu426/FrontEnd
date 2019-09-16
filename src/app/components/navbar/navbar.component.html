@@ -2,10 +2,13 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav mode= "side">
         <mat-nav-list>
-            <a mat-list-item *ngFor="let link of links">{{link}}</a>
+            <a mat-list-item routerLink = "/resources">Resources</a>
+            <a mat-list-item routerLink = "/project">Project</a>
+            <a mat-list-item routerLink = "/formula">Formula</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
         <button (click) = "sidenav.toggle()">></button>
+        <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
