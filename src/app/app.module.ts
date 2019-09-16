@@ -9,7 +9,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 import {AngularMaterialModule} from './angular-material/angular-material.module';
-import { FontAwesomeModule, FaIconLibrary} from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {RoutingModule} from './routing/routing.module';
+import { FormulaComponent } from './components/formula/formula.component';
 
 
 @NgModule({
@@ -17,12 +19,14 @@ import { FontAwesomeModule, FaIconLibrary} from '@fortawesome/angular-fontawesom
     AppComponent,
     HeaderComponent,
     NavbarComponent,
+    FormulaComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
     FontAwesomeModule,
+    RoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

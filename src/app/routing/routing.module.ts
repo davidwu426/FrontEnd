@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { FormulaComponent } from '../components/formula/formula.component';
 
 
+const appRoutes : Routes = [
+  {path : "formula", component : FormulaComponent}
+]
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule 
-  ]
+    RouterModule.forRoot(appRoutes),
+  ],
+  exports : [RouterModule],
 })
 export class RoutingModule { }
