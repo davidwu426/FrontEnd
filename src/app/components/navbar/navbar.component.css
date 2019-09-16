@@ -1,12 +1,13 @@
 mat-sidenav{
     background-color: black;
     color:white;
-    width: 300px;
+    width: 20%;
     padding: 0;
-    margin: 0;
+    margin: 0; 
 }
 mat-sidenav-container{
     height: 100%;
+    border: none;
 }
 
 mat-sidenav-content{
@@ -16,12 +17,18 @@ mat-sidenav-content{
 button{
     background-color :black;
     color : white;
+    border: none;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    width: 35px;
-    height: 20px;
-    margin:0;
-    padding: 0;
+    width: 65px;
+    height: 50px;
+    font-size: 1.5rem;
+}
+
+button:focus, button:active, button:focus:active{
+    background-image: none;
+    outline: 0;
+    box-shadow: none;
 }
 
 a{

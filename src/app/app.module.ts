@@ -5,10 +5,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 import {AngularMaterialModule} from './angular-material/angular-material.module';
+import { FontAwesomeModule, FaIconLibrary} from '@fortawesome/angular-fontawesome';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,8 +22,10 @@ import {AngularMaterialModule} from './angular-material/angular-material.module'
     BrowserModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+ }
