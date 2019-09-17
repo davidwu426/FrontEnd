@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import {faQuestion} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +11,7 @@ export class HeaderComponent implements OnInit {
 
 
   constructor(library : FaIconLibrary) {
-    library.addIcons(faUserCircle, faQuestion);
+    library.addIcons(faUserCircle, faQuestionCircle);
    }
 
   ngOnInit() {

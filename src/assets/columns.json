@@ -1,0 +1,4 @@
+[
+    {"coldId" : 1, "fieldFormula" : "none", "fieldName" : "Resource Name", "fieldScope": "true", "fieldType": "String", "projectID":1},
+    {"coldId" : 2, "fieldFormula" : "none", "fieldName" : "Resource Code", "fieldScope": "true", "fieldType": "String", "projectID":1}
+]

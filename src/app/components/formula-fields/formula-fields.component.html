@@ -1,0 +1,29 @@
+<div>
+    <div *ngFor = "let col of data">
+        <span>{{col.colName}}</span>
+        <input type = "checkbox" [checked] = "col.colScope" >
+    </div>
+</div>
+
+<div>
+    <div *ngFor = "let col of data">
+        <div>
+            <label>Field</label>
+            <input type = "text" [value] = "col.colName">
+
+            <label> Type</label>
+            <select>
+                <option>string</option>
+                <option>number</option>
+                <option>formula</option>
+            </select>
+            <button  *ngIf = "col.colName !== 'Resource Name' && col.colName !== 'Resource Code'" mat-icon-button (click) = "removeColumn(col)"> 
+                <fa-icon class = "trash" icon="trash" size = "lg"></fa-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div>
+    <button mat-icon-button> <fa-icon id = "plus-square" icon="plus-square" size = "lg"></fa-icon></button>
+</div>
