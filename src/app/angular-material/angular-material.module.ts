@@ -43,7 +43,7 @@ import {MatTableModule} from '@angular/material/table';
 
 
 const CustomAngularMaterial = [MatButtonModule, MatSidenavModule, MatListModule, MatToolbarModule,
-MatTableModule, MatCheckboxModule];
+MatTableModule, MatCheckboxModule, MatGridListModule];
 
 const AngularTableSearch = [A11yModule,
   CdkStepperModule,
@@ -63,7 +63,6 @@ const AngularTableSearch = [A11yModule,
   MatDialogModule,
   MatDividerModule,
   MatExpansionModule,
-  MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatListModule,

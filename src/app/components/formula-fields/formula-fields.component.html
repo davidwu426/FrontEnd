@@ -1,34 +1,72 @@
-
-<mat-list>
-    <mat-list-item  *ngFor = "let col of data">
-        <mat-checkbox labelPosition = "before"  [checked] = "col.colScope"  (change) = "changeScope(col,$event)">{{col.colName}}</mat-checkbox>
-    </mat-list-item>
-</mat-list>
-<div>
-    <div *ngFor = "let col of data">
-        <span>{{col.colName}}</span>
-        <input  *ngIf = "col.colName !== 'Resource Name' && col.colName !== 'Resource Code'" type = "checkbox" >
-    </div>
-</div>
-
-<div>
-    <div *ngFor = "let col of data">
+<mat-grid-list cols = "4">
+    
+    
+    <!-- Project Field Scope Tile-->
+    <mat-grid-tile rowspan = "2" colspan = "1">
+        <mat-list id = "project-field-scope">
+            <!-- Project Field Scope Toolbar-->
+            <mat-list-item>
+                Project Scope Fields
+            </mat-list-item>
+            
+            <!-- Project Field Scope item list-->
+            <mat-list-item   *ngFor = "let col of data">
+                <div>
+                    <span class = "scope-fields">{{col.colName}}</span>
+                    <span>
+                        <input [checked] = "col.colScope" (change) = "changeScope(col,$event)" [disabled] = "col.colName === 'Resource Name' || col.colName === 'Resource Code'" type = "checkbox">
+                    </span>
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </mat-grid-tile>
+    
+    <!-- Project Survey Fields-->
+    <mat-grid-tile rowspan = "2" colspan ="3">
+        
+        <mat-list id ="project-survey-field">
+            <!-- Project Survey Fields ToolBar-->
+            <mat-list-item>
+                Project Survey Fields
+            </mat-list-item>
+            
+            <!-- Project Survey Fields List-->
+            <mat-list-item *ngFor = "let col of data">
+                <div class = "survey-fields-container">
+                    <span class= "survey-fields">
+                        <label>Field</label>
+                        <input [disabled] = "col.colName === 'Resource Name' || col.colName === 'Resource Code'"type = "text" [value] = "col.colName" (change) ="changeColName(col, $event)" >
+                    </span>
+                    <span class = "survey-fields">
+                        <label> Type</label>
+                        <select [disabled] = "col.colName === 'Resource Name' || col.colName === 'Resource Code'"  #type [value] = "col.colType" (change) ="changeColType(col, $event)">
+                            <option value = "Text">Text</option>
+                            <option value = "Number">Number</option>
+                            <option value ="Formula">Formula</option>
+                        </select>
+                    </span>
+                    <span class = "survey-fields">
+                        <span *ngIf = "type.value === 'Formula'">
+                            <label>Formula</label>
+                            <input type = "text" [value] = "col.colName" >
+                        </span>
+                    </span>
+                    <span>
+                        <button  *ngIf = "col.colName !== 'Resource Name' && col.colName !== 'Resource Code'" mat-icon-button (click) = "removeColumn(col)"> 
+                            <fa-icon class = "trash" icon="trash" size = "lg"></fa-icon>
+                        </button>
+                    </span>
+                </div>
+            </mat-list-item>
+        </mat-list>
         <div>
-            <label>Field</label>
-            <input type = "text" [value] = "col.colName" >
-            <label> Type</label>
-            <select>
-                <option>string</option>
-                <option>number</option>
-                <option>formula</option>
-            </select>
-            <button  *ngIf = "col.colName !== 'Resource Name' && col.colName !== 'Resource Code'" mat-icon-button (click) = "removeColumn(col)"> 
-                <fa-icon class = "trash" icon="trash" size = "lg"></fa-icon>
-            </button>
+            Add Fields <button mat-icon-button (click) = "addColumn()"> <fa-icon id = "plus-square" icon="plus-square" size = "lg"></fa-icon></button>
         </div>
-    </div>
-</div>
+    </mat-grid-tile>
+    
+    <mat-grid-tile rowspan ="1" colspan = "4" rowHeight = "100">
+        
+    </mat-grid-tile>
+</mat-grid-list>
 
-<div>
-    <button mat-icon-button> <fa-icon id = "plus-square" icon="plus-square" size = "lg"></fa-icon></button>
-</div>
+
