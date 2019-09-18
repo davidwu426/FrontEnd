@@ -16,7 +16,6 @@ const PROJECT_RESOURCE_DATA  : ProjectResource[] = [
 })
 
 
-
 export class ResourceService {
   private project_resource = new BehaviorSubject<ProjectResource[]>(PROJECT_RESOURCE_DATA);
   data = this.project_resource.asObservable();

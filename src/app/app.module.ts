@@ -11,22 +11,27 @@ import {HttpClientModule} from '@angular/common/http';
 
 //Services
 import {ColumnsService} from './service/columns.service';
+import { CellsService } from './service/cells.service';
 
 //Components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FormulaFieldsComponent } from './components/formula-fields/formula-fields.component';
+import { FormulaComponent } from './components/formula/formula.component';
 
+//external modules 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AngularMaterialModule} from './angular-material/angular-material.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { RoutingModule } from './routing/routing.module';
 import { ResourceComponent } from './components/resource/resource.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { FormulaComponent } from './components/formula/formula.component';
-import { FormulaFieldsComponent } from './components/formula-fields/formula-fields.component';
-import { CellsService } from './service/cells.service';
+
+
+
 
 @NgModule({
   declarations: [

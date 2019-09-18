@@ -1,6 +1,47 @@
+mat-list{
+    overflow:scroll;
+    color: black;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+mat-grid-tile{
+    border: 1px solid black;
+}
+mat-list-item{
+    border: 1px solid lightgrey;
+}
+#project-field-scope > mat-list-item:nth-child(2n+1){
+    background-color:lightgrey;
+    color: black;
+}
+
+#project-field-scope > mat-list-item:nth-child(2n){
+    background-color: white;
+    color: black;
+}
+
+#project-survey-field > mat-list-item:nth-child(1){
+    margin: 0;
+}
+
+#project-survey-field > mat-list-item{
+    color:black;
+    background-color: lightgrey;
+    margin: 10px 0;
+}
+.survey-fields-container{
+    width: 100%;
+}
+
+.survey-fields{
+    width: 30%;
+}
+
 .trash{
     color: red;
 }
 #plus-square{
     color: green;
 }
+
