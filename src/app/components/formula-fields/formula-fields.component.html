@@ -1,7 +1,13 @@
+
+<mat-list>
+    <mat-list-item  *ngFor = "let col of data">
+        <mat-checkbox labelPosition = "before"  [checked] = "col.colScope"  (change) = "changeScope(col,$event)">{{col.colName}}</mat-checkbox>
+    </mat-list-item>
+</mat-list>
 <div>
     <div *ngFor = "let col of data">
         <span>{{col.colName}}</span>
-        <input type = "checkbox" [checked] = "col.colScope" >
+        <input  *ngIf = "col.colName !== 'Resource Name' && col.colName !== 'Resource Code'" type = "checkbox" >
     </div>
 </div>
 
@@ -9,8 +15,7 @@
     <div *ngFor = "let col of data">
         <div>
             <label>Field</label>
-            <input type = "text" [value] = "col.colName">
-
+            <input type = "text" [value] = "col.colName" >
             <label> Type</label>
             <select>
                 <option>string</option>

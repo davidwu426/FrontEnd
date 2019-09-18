@@ -43,7 +43,8 @@ export class FormulaComponent implements OnInit {
   colData: Column[];
   projectResourceData  : ProjectResources[];
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  allColumns : string [];
+  displayedColumsn2 : string[] = []; 
+  allColumns: string[] = [];
   dataSource = ELEMENT_DATA;
 
   constructor(private columnService : ColumnsService, private resourceService : ResourceService) { }
@@ -51,10 +52,13 @@ export class FormulaComponent implements OnInit {
   ngOnInit() {
     this.columnService.data.subscribe(data => this.colData = data);
     this.resourceService.data.subscribe(data => this.projectResourceData = data);
+
+    // setting up the total number of columns and the ones dispayed;
+    for(var i = 0 ; i < this.colData.length;i++){
+      if(this.colData[i].colScope === true){
+        this.displayedColumsn2.push(this.colData[i].colName);
+      }
+      this.allColumns.push(this.colData[i].colName);
+    }
   }
-
-  setUpTable(projectResource : ProjectResources[], col : Column[], cell : Cell[]){
-
-  }
-
 }
