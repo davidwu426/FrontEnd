@@ -3,17 +3,21 @@
 <div class="group-search-table">
 <mat-toolbar>   
     <form class="form-inline md-form form-sm active-cyan-2">
-        <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Keyword" aria-label="Search" mdbInput>
-        <button (click)="applyFilter($event.target.value)"><i class="material-icons">search</i></button>
+        <input (keyup.enter)="applyFilter($event.target.value)" class="form-control form-control-sm mr-3 w-75" type="text" #name placeholder="Keyword" aria-label="Search">
+        <button type="submit" (click)="applyFilter(name.value)"><i class="material-icons">search</i></button>
     </form>    
+    <span class="example-fill-remaining-space"></span>
+    <h3>Resource Catalog</h3>
 
-    <!-- <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field> -->
     <span class="example-fill-remaining-space"></span>
-    <h3>Resource Catalog</h3>
-    <span class="example-fill-remaining-space"></span>
-    <h3>Resource Catalog</h3>
+
+    <button [matMenuTriggerFor]="menu"><i class="material-icons">add</i></button>
+    <mat-menu #menu="matMenu">        
+      <button mat-menu-item><mat-icon class="material-icons option-icons add-row">format_align_left</mat-icon><span>Add Row</span></button>
+      <button mat-menu-item><mat-icon class="material-icons option-icons add-col">view_stream</mat-icon><span>Add Column</span></button>
+      <button mat-menu-item><mat-icon class="material-icons option-icons add-row">insert_drive_file</mat-icon><span>Import CSV</span></button>
+    </mat-menu>
+   
 </mat-toolbar>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   

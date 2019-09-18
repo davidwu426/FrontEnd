@@ -31,7 +31,14 @@ export interface PeriodicElement {
     displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
 
+    OPTIONS = ["Add Row", "Add Column", "Import CSV"];
+
+
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
+    } 
+
+    search(name: string){
+      this.dataSource.filter = (name);
     }
 }
