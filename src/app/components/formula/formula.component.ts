@@ -65,8 +65,14 @@ export class FormulaComponent implements OnInit {
       for(var x = 0 ; x < this.displayedColumns2.length;x++){
         temp[this.displayedColumns2[x]] = "water";
       }
+      temp['project'] = 1;
+      temp['resourceId'] = this.projectResourceData[i].resourceId;
       customObject.push(temp);
     }
     return customObject;
+  }
+
+  changeInput(data,e){
+
   }
 }
