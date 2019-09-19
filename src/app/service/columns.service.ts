@@ -28,7 +28,17 @@ const COLUMN_DATA : Column[]= [
   {coldId : 2, colFormula : "none", colName : "Resource Code", colScope: true, colType: "Text", projectId:1},
   {coldId: 3, colFormula:"none", colName:"Quantity", colScope :false, colType : "Number", projectId :1},
   {coldId: 4, colFormula:"none", colName:"Price", colScope :false, colType : "Number", projectId :1},
-  {coldId: 5, colFormula:"none", colName:"Quantity", colScope :false, colType : "Formula", projectId :1}
+  {coldId: 5, colFormula:"none", colName:"Total", colScope :false, colType : "Formula", projectId :1},
+  {coldId: 6, colFormula:"none", colName:"X", colScope :false, colType : "Number", projectId :1},
+  {coldId: 7, colFormula:"none", colName:"XX", colScope :false, colType : "Formula", projectId :1},
+  {coldId: 8, colFormula:"none", colName:"O", colScope :false, colType : "Number", projectId :1},
+  {coldId: 9, colFormula:"none", colName:"To", colScope :false, colType : "Formula", projectId :1},
+  {coldId: 61, colFormula:"none", colName:"Xd", colScope :false, colType : "Number", projectId :1},
+  {coldId: 71, colFormula:"none", colName:"XXd", colScope :false, colType : "Formula", projectId :1},
+  {coldId: 42, colFormula:"none", colName:"Prie", colScope :false, colType : "Number", projectId :1},
+  {coldId: 52, colFormula:"none", colName:"Toxtal", colScope :false, colType : "Formula", projectId :1},
+  {coldId: 62, colFormula:"none", colName:"Xa", colScope :false, colType : "Number", projectId :1},
+  {coldId: 72, colFormula:"none", colName:"XdX", colScope :false, colType : "Formula", projectId :1},
 ]
 
 

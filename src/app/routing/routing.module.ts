@@ -8,7 +8,7 @@ import { FormulaFieldsComponent } from '../components/formula-fields/formula-fie
 const appRoutes : Routes = [
   {path : "formula", component : FormulaComponent},
 
-  {path : "resource", component : ResourceComponent},
+  {path : "resources", component : ResourceComponent},
 
   {path : "formula/fields", component : FormulaFieldsComponent},
 ]

@@ -62,4 +62,23 @@ export class FormulaFieldsComponent implements OnInit, OnDestroy {
     this.data.push(colz);
   }
 
+  saveColumn(){
+    let canUpdate = true;
+    for(var i = 0 ; i < this.data.length-1;i++){
+      for(var x = i+1 ; x < this.data.length;x++){
+        if(this.data[i].colName === this.data[x].colName){
+          console.log("same column name"+ this.data[i].colName);
+          canUpdate = false;
+        }
+      }
+    }
+
+    if(canUpdate){
+      console.log("saved column")
+      this.columnService.editCols(this.data);
+    }else{
+      alert("Please have columns with different names");
+    }
+  }
+
 }

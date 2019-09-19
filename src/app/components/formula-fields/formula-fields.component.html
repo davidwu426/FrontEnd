@@ -29,44 +29,46 @@
             <mat-list-item>
                 Project Survey Fields
             </mat-list-item>
-            
+     
             <!-- Project Survey Fields List-->
             <mat-list-item *ngFor = "let col of data">
-                <div class = "survey-fields-container">
-                    <span class= "survey-fields">
-                        <label>Field</label>
+                    <div class= "survey-fields">
+                        Field
+                        <br>
                         <input [disabled] = "col.colName === 'Resource Name' || col.colName === 'Resource Code'"type = "text" [value] = "col.colName" (change) ="changeColName(col, $event)" >
-                    </span>
-                    <span class = "survey-fields">
-                        <label> Type</label>
+                    </div>
+                    <div class = "survey-fields">
+                        type
+                        <br>
                         <select [disabled] = "col.colName === 'Resource Name' || col.colName === 'Resource Code'"  #type [value] = "col.colType" (change) ="changeColType(col, $event)">
                             <option value = "Text">Text</option>
                             <option value = "Number">Number</option>
                             <option value ="Formula">Formula</option>
                         </select>
-                    </span>
-                    <span class = "survey-fields">
+                    </div>
+                    <div class = "survey-fields">
                         <span *ngIf = "type.value === 'Formula'">
-                            <label>Formula</label>
+                            Formula
+                            <br>
                             <input type = "text" [value] = "col.colName" >
                         </span>
-                    </span>
-                    <span>
+                    </div>
+                    <div class = "survey-fields-trash">
                         <button  *ngIf = "col.colName !== 'Resource Name' && col.colName !== 'Resource Code'" mat-icon-button (click) = "removeColumn(col)"> 
                             <fa-icon class = "trash" icon="trash" size = "lg"></fa-icon>
                         </button>
-                    </span>
-                </div>
+                    </div>
             </mat-list-item>
         </mat-list>
         <div>
             Add Fields <button mat-icon-button (click) = "addColumn()"> <fa-icon id = "plus-square" icon="plus-square" size = "lg"></fa-icon></button>
         </div>
     </mat-grid-tile>
-    
-    <mat-grid-tile rowspan ="1" colspan = "4" rowHeight = "100">
-        
-    </mat-grid-tile>
 </mat-grid-list>
+<div>
+    <button (click) ="saveColumn()">
+        Save
+    </button>
+</div>
 
 

@@ -8,8 +8,17 @@ mat-list{
 mat-grid-tile{
     border: 1px solid black;
 }
+
 mat-list-item{
     border: 1px solid lightgrey;
+    padding: 0;
+}
+.mat-list-base .mat-list-item .mat-list-item-content{
+    padding: 0 !important;
+}
+
+mat-list-item div{
+    display: inline-block;
 }
 #project-field-scope > mat-list-item:nth-child(2n+1){
     background-color:lightgrey;
@@ -30,12 +39,22 @@ mat-list-item{
     background-color: lightgrey;
     margin: 10px 0;
 }
+
+.survey-fields-trash{
+    width: 10%;
+}
+
 .survey-fields-container{
     width: 100%;
+    border-right: 1px solid lightgrey;
 }
+
+
 
 .survey-fields{
     width: 30%;
+    height: 100%;
+    border-right: 1px solid grey;
 }
 
 .trash{
