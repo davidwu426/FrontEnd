@@ -13,39 +13,45 @@
 
     <button [matMenuTriggerFor]="menu"><i class="material-icons">add</i></button>
     <mat-menu #menu="matMenu">        
-      <button mat-menu-item><mat-icon class="material-icons option-icons add-row">format_align_left</mat-icon><span>Add Row</span></button>
-      <button mat-menu-item><mat-icon class="material-icons option-icons add-col">view_stream</mat-icon><span>Add Column</span></button>
-      <button mat-menu-item><mat-icon class="material-icons option-icons add-row">insert_drive_file</mat-icon><span>Import CSV</span></button>
+      <button mat-menu-item type="submit" (click)="toggleAddRow()"><mat-icon class="material-icons option-icons add-row">format_align_left</mat-icon><span>Add Row</span></button>
+      <label class="fileContainer">
+        <button mat-menu-item type="submit">
+      
+       <mat-icon class="material-icons option-icons add-row">insert_drive_file</mat-icon>     
+        Import CSV
+      <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (click)="uploadListener($event)" accept=".csv" />
+    
+  </button></label>
     </mat-menu>
    
 </mat-toolbar>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    <!-- Resource Code Column -->
+    <ng-container matColumnDef="ResourceCode">
+      <th mat-header-cell *matHeaderCellDef> Resource Code </th>
+      <td mat-cell *matCellDef="let element"> {{element.ResourceCode}} </td>
+      <td mat-footer-cell *matFooterCellDef >&nbsp;&nbsp;&nbsp;&nbsp; <input *ngIf="show" type="text" #ResourceCode [(ngModel)]='RScode_in' class="input_new_row"/> </td>
     </ng-container>
   
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Weight </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef> Symbol </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    <!-- Resource Name Column -->
+    <ng-container matColumnDef="ResourceName">
+      <th mat-header-cell *matHeaderCellDef> Resource Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.ResourceName}} </td>
+      
+      <td mat-footer-cell *matFooterCellDef> 
+      <div class="row_footer" *ngIf="show">
+        <button id="button_check" type="submit" (click)="addRow()"><mat-icon id="check">check_circle</mat-icon></button> 
+        <button id="button_check1" type="submit" (click)="cancelAddRow()"><mat-icon id="check1" class="cancel_add">add_circle</mat-icon></button>
+        <input type="text" #ResourceName [(ngModel)]='RSname_in' class="input_new_row"/> 
+      </div></td>
+      
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
 </table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
+
