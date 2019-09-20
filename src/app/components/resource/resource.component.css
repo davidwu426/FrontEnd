@@ -45,7 +45,7 @@ mat-form-field-infix{
     width: 20px;
     display: inline-flex;
     margin-bottom: 4px;
-    margin-top: 4px;
+    margin-top: 3px;
 }
 #button_check1{
     background-color: white;
@@ -101,8 +101,9 @@ table {
     width: 95%;
     margin-left: 2%;
     border: 1px solid #c3c3c3;
+    table-layout: fixed; 
+    /* width: 100%; */
 }
-
 .option-dropdown {
     position: absolute;
     padding: 4px 8px;
@@ -118,7 +119,10 @@ mat-form-field /deep/.mat-form-field-underline {
 .group-search-table{
     width: 95%;
 }
-
+.mat-paginator{
+    margin-left: 2%;
+    margin-right: 3%;
+}
 .fileContainer {
     overflow: hidden;
     position: relative;
@@ -137,13 +141,3 @@ mat-form-field /deep/.mat-form-field-underline {
     text-align: right;
     top: 0;
 }
-/* .fileContainer {
-    background: red;
-    border-radius: .5em;
-    float: left;
-    padding: .5em;
-}
-
-.fileContainer [type=file] {
-    cursor: pointer;
-} */

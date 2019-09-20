@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 export interface ProjectResource{
   projectId : number,
@@ -35,9 +36,26 @@ const PROJECT_RESOURCE_DATA  : ProjectResource[] = [
 export class ResourceService {
   private project_resource = new BehaviorSubject<ProjectResource[]>(PROJECT_RESOURCE_DATA);
   data = this.project_resource.asObservable();
-
   changeProjectResource(projectResource : ProjectResource[]){
     this.project_resource.next(projectResource);
   }
-  constructor() { }
+  baseURL: string = "http://localhost:8080/RM";
+  constructor(private http: HttpClient) { }
+
+  get_resources_with_projId(id){
+    return this.http.get(`${this.baseURL}/project/${id}`);
+  };
+
+  addResource(p_id, resourceName, resourceCode) {
+    const obj = {
+      resourceName: resourceName,
+      resourceCode: resourceCode
+    };
+    console.log(obj);
+    this.http.post(`${this.baseURL}/project/${p_id}/resource`, obj)
+        .subscribe(res => console.log('Done'));
+  }
 }
+
+// setHeader{
+//   allow cross, "*"}

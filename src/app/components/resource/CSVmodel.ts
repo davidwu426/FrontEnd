@@ -1,4 +1,4 @@
 export class CSVrecord {
-    public RScode: any;
-    public RSname: any;
+    public cost_code: any;
+    public name: any;
 }
