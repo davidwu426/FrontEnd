@@ -3,14 +3,14 @@
 <mat-toolbar>   
     <form class="form-inline md-form form-sm active-cyan-2">
         <input (keyup.enter)="applyFilter($event.target.value)" id="input_search" class="form-control form-control-sm mr-3 w-75" type="text" #name placeholder="Keyword" aria-label="Search">
-        <button type="button"  (click)="applyFilter(name.value)"><i class="material-icons">search</i></button>
+        <button type="button"  (click)="applyFilter(name.value)"><i id="search_plus" class="material-icons">search</i></button>
     </form>    
     <span class="example-fill-remaining-space"></span>
     <h2>Resource Catalog</h2>
 
     <span class="example-fill-remaining-space"></span>
 
-    <button [matMenuTriggerFor]="menu" type="button"><i class="material-icons">add</i></button>
+    <button [matMenuTriggerFor]="menu" type="button"><i  id="search_plus"  class="material-icons">add</i></button>
     <!-- <mat-menu #menu="matMenu">        
       <button mat-menu-item type="button" (click)="toggleAddRow()"><mat-icon class="material-icons option-icons add-row">format_align_left</mat-icon><span>Add Row</span></button>
       <label class="fileContainer">

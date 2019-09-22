@@ -8,7 +8,9 @@ h2{
     color: black;
     border: 1px solid #c3c3c3;
 }
-
+#search_plus{
+    font-size: 25px;
+}
 .material-icons{
     font-size: 19px;
     color: white;
