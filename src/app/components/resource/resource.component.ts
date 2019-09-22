@@ -2,20 +2,16 @@ import { Component, ViewChild, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { CSVrecord } from './CSVmodel';
-import { resourceModelArr} from './resourceModel'
 import { ResourceService } from 'src/app/service/resource.service';
 
-export interface PeriodicElement {
+export interface RES_MODEL {
     name: string;
     cost_code: number;
   }
 
-  const ELEMENT_DATA: PeriodicElement[] = [
+  const RESOURCE_DATA: RES_MODEL[] = [];
 
-  ];
-const RESOURCES: resourceModelArr[] = []
-
-@Component({
+  @Component({
     selector: 'app-resource',
     templateUrl: './resource.component.html',
     styleUrls: ['./resource.component.css']
@@ -25,29 +21,27 @@ const RESOURCES: resourceModelArr[] = []
     constructor(private resourceService : ResourceService) { }
 
     displayedColumns: string[] = ['name', 'cost_code'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
-    resources: any[];
+    dataSource = new MatTableDataSource(RESOURCE_DATA);
     RScode_in: number = undefined;
     RSname_in: string = undefined;
     public show:boolean = false;
     public records: any[] = []; // CSV file data
+    public gotRecords:boolean = false;
     @ViewChild('csvReader', { static: true }) csvReader: any;  
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
     OPTIONS = ["Add Row", "Add Column", "Import CSV"];
 
     ngOnInit() {
-      this.resourceService.get_resources_with_projId(11).subscribe((data: any[]) => {
-        console.log(resourceModelArr);
-        console.log(data);
+      this.resourceService.get_Allresources().subscribe((data: any[]) => {
         data.forEach(function (element) {
-          const newItem = {cost_code: element.res.resourceCode, name: element.res.resourceName};
-          ELEMENT_DATA.push(newItem);
+          const newItem = {cost_code: element.resourceCode, name: element.resourceName};
+          RESOURCE_DATA.push(newItem);
         });        
-        this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+        this.dataSource = new MatTableDataSource(RESOURCE_DATA);
         this.dataSource.paginator = this.paginator;
       });        
-      this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+      this.dataSource = new MatTableDataSource(RESOURCE_DATA);
       this.dataSource.paginator = this.paginator;
     }
 
@@ -59,8 +53,26 @@ const RESOURCES: resourceModelArr[] = []
     addRow(){
       var isDuplicate = false;
       if(this.RScode_in != undefined && this.RSname_in != undefined){
-      const newItem = {cost_code: this.RScode_in, name: this.RSname_in};
-      ELEMENT_DATA.forEach(function (element) {
+      if (!this.gotRecords){
+        const newItem = {cost_code: this.RScode_in, name: this.RSname_in};
+        RESOURCE_DATA.forEach(function (element) {
+        if (JSON.stringify(element.cost_code) === JSON.stringify(newItem.cost_code)) {
+            isDuplicate = true;
+            alert("Can't insert resource with same code!");
+            return false;
+        }
+        });
+        if (!isDuplicate) {
+          RESOURCE_DATA.push(newItem);
+          this.RScode_in = null;
+          this.RSname_in = '';
+          this.dataSource.paginator = this.paginator;
+          this.resourceService.addResource(newItem.name, newItem.cost_code);
+        };
+      }
+      else{
+        const newItem = {cost_code: this.RScode_in, name: this.RSname_in};
+        this.records.forEach(function (element) {
         if (JSON.stringify(element.cost_code) === JSON.stringify(newItem.cost_code)) {
             isDuplicate = true;
             alert("Can't insert resource with same code!");
@@ -68,15 +80,14 @@ const RESOURCES: resourceModelArr[] = []
         }
       });
       if (!isDuplicate) {
-        ELEMENT_DATA.push(newItem);
-        this.RScode_in = null;
-        this.RSname_in = '';
-        this.dataSource.paginator = this.paginator;
-      };
-     }
-     
-    this.resourceService.addResource(11, this.RSname_in, this.RScode_in);
-    
+          this.records.push(newItem);
+          this.RScode_in = null;
+          this.RSname_in = '';
+          this.dataSource.paginator = this.paginator;
+          this.resourceService.addResource(newItem.name, newItem.cost_code);
+        };
+      }
+     } 
     }
     cancelAddRow(){
       this.RScode_in = null;
@@ -84,25 +95,22 @@ const RESOURCES: resourceModelArr[] = []
       this.show = !this.show;
     }
 
-
     uploadListener($event: any): void {  
-      let text = [];  
       let files = $event.srcElement.files;  
       if (files[0] != undefined){
       if (this.isValidCSVFile(files[0])) {  
         let input = $event.target;  
         let reader = new FileReader();  
         reader.readAsText(input.files[0]);  
-    
         reader.onload = () => {  
           let csvData = reader.result;  
           let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);  
           let headersRow = this.getHeaderArray(csvRecordsArray);  
           this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length); 
           this.dataSource = new MatTableDataSource(this.records); 
+          this.gotRecords = true;
           this.dataSource.paginator = this.paginator;
         };  
-    
         reader.onerror = function () {  console.log('error is occured while reading file!');  };  
       } 
       else {  
@@ -112,6 +120,36 @@ const RESOURCES: resourceModelArr[] = []
     }  
     }  
     
+    uploadListenerDB($event: any): void {  
+      let files = $event.srcElement.files;  
+      if (files[0] != undefined){
+      if (this.isValidCSVFile(files[0])) {  
+        let input = $event.target;  
+        let reader = new FileReader();  
+        reader.readAsText(input.files[0]); 
+        reader.onload = () => {  
+          let csvData = reader.result;  
+          let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);  
+          let headersRow = this.getHeaderArray(csvRecordsArray);  
+          this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length); 
+          this.dataSource = new MatTableDataSource(this.records); 
+          this.gotRecords = true;
+          this.dataSource.paginator = this.paginator;
+          this.records.forEach(function (element) {
+            const newItem = {cost_code: element.cost_code, name: element.name};
+            console.log(newItem);
+            this.resourceService.addResource(newItem.name, newItem.cost_code);
+          }.bind(this));
+        };          
+        reader.onerror = function () {  console.log('error is occured while reading file!');  };  
+      } 
+      else {  
+        alert("Please import valid .csv file.");  
+        this.fileReset();  
+      }
+    }  
+    }  
+
     getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {  
       let csvArr = [];  
       for (let i = 1; i < csvRecordsArray.length; i++) {  

@@ -45,14 +45,26 @@ export class ResourceService {
   get_resources_with_projId(id){
     return this.http.get(`${this.baseURL}/project/${id}`);
   };
+  get_Allresources(){
+    return this.http.get(`${this.baseURL}/resource`);
+  };
 
-  addResource(p_id, resourceName, resourceCode) {
+  addResource_toProjId(p_id, resourceName, resourceCode) {
     const obj = {
       resourceName: resourceName,
       resourceCode: resourceCode
     };
     console.log(obj);
     this.http.post(`${this.baseURL}/project/${p_id}/resource`, obj)
+        .subscribe(res => console.log('Done'));
+  }
+  addResource(resourceName, resourceCode) {
+    const obj = {
+      resourceName: resourceName,
+      resourceCode: resourceCode
+    };
+    console.log(obj);
+    this.http.post(`${this.baseURL}/resource`, obj)
         .subscribe(res => console.log('Done'));
   }
 }

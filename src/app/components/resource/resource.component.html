@@ -2,31 +2,39 @@
 <div class="group-search-table">
 <mat-toolbar>   
     <form class="form-inline md-form form-sm active-cyan-2">
-        <input (keyup.enter)="applyFilter($event.target.value)" class="form-control form-control-sm mr-3 w-75" type="text" #name placeholder="Keyword" aria-label="Search">
-        <button type="button" (click)="applyFilter(name.value)"><i class="material-icons">search</i></button>
+        <input (keyup.enter)="applyFilter($event.target.value)" id="input_search" class="form-control form-control-sm mr-3 w-75" type="text" #name placeholder="Keyword" aria-label="Search">
+        <button type="button"  (click)="applyFilter(name.value)"><i class="material-icons">search</i></button>
     </form>    
     <span class="example-fill-remaining-space"></span>
-    <h3>Resource Catalog</h3>
+    <h2>Resource Catalog</h2>
 
     <span class="example-fill-remaining-space"></span>
 
     <button [matMenuTriggerFor]="menu" type="button"><i class="material-icons">add</i></button>
-    <mat-menu #menu="matMenu">        
+    <!-- <mat-menu #menu="matMenu">        
       <button mat-menu-item type="button" (click)="toggleAddRow()"><mat-icon class="material-icons option-icons add-row">format_align_left</mat-icon><span>Add Row</span></button>
       <label class="fileContainer">
         <button mat-menu-item type="submit">
-      
-       <mat-icon class="material-icons option-icons add-row">insert_drive_file</mat-icon>     
+        <mat-icon class="material-icons option-icons add-row">insert_drive_file</mat-icon>     
         Import CSV
-      <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" title="" />
-    
-  </button></label>
+        <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" title="" />
+        </button></label>
+    </mat-menu> -->
+    <mat-menu #menu="matMenu">        
+      <button mat-menu-item type="button" (click)="toggleAddRow()"><mat-icon class="material-icons option-icons add-row">format_align_left</mat-icon><span>Add Row</span></button>
+      <label class="fileContainer">
+        <button mat-menu-item type="submit"><mat-icon class="material-icons option-icons add-row">insert_drive_file</mat-icon>Import CSV
+        <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" title="" />
+        </button></label>
+        <label class="fileContainer">
+            <button mat-menu-item type="submit"><mat-icon class="material-icons option-icons add-row">insert_drive_file</mat-icon><span>Import to DB</span>
+            <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListenerDB($event)" accept=".csv" title="" />
+        </button></label>
     </mat-menu>
-   
 </mat-toolbar>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="cost_code">
-      <th mat-header-cell *matHeaderCellDef> Resource Code </th>
+      <th mat-header-cell *matHeaderCellDef> <h2>Resource Code</h2> </th>
       <td mat-cell *matCellDef="let element"> {{element.cost_code}} </td>
       <td mat-footer-cell *matFooterCellDef> 
           <div class="row_footer" *ngIf="show">
@@ -37,7 +45,7 @@
     </ng-container>
   
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Resource Name </th>
+      <th mat-header-cell *matHeaderCellDef> <h2>Resource Name</h2> </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       <td mat-footer-cell *matFooterCellDef >&nbsp;&nbsp;&nbsp;&nbsp; 
         <input *ngIf="show" type="text" #ResourceName [(ngModel)]='RSname_in' (keyup.enter)="addRow()" class="input_new_row"/> </td>      
