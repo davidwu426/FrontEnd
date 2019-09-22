@@ -6,7 +6,7 @@ import { ResourceService } from 'src/app/service/resource.service';
 
 export interface RES_MODEL {
     name: string;
-    cost_code: number;
+    cost_code: string;
   }
 
   const RESOURCE_DATA: RES_MODEL[] = [];
@@ -53,8 +53,9 @@ export interface RES_MODEL {
     addRow(){
       var isDuplicate = false;
       if(this.RScode_in != undefined && this.RSname_in != undefined){
-      if (!this.gotRecords){
-        const newItem = {cost_code: this.RScode_in, name: this.RSname_in};
+        const formatCode = this.RScode_in.toString().replace(/\B(?=(\d{2})+(?!\d))/g, " ");      
+      if (!this.gotRecords){        
+        const newItem = {cost_code: formatCode, name: this.RSname_in};
         RESOURCE_DATA.forEach(function (element) {
         if (JSON.stringify(element.cost_code) === JSON.stringify(newItem.cost_code)) {
             isDuplicate = true;
@@ -71,7 +72,7 @@ export interface RES_MODEL {
         };
       }
       else{
-        const newItem = {cost_code: this.RScode_in, name: this.RSname_in};
+        const newItem = {cost_code: formatCode, name: this.RSname_in};
         this.records.forEach(function (element) {
         if (JSON.stringify(element.cost_code) === JSON.stringify(newItem.cost_code)) {
             isDuplicate = true;
@@ -109,38 +110,15 @@ export interface RES_MODEL {
           this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length); 
           this.dataSource = new MatTableDataSource(this.records); 
           this.gotRecords = true;
+          if (confirm("Do you want to upload to Database?")){
+            this.records.forEach(function (element) {
+              const newItem = {cost_code: element.cost_code, name: element.name};
+              console.log(newItem);
+              this.resourceService.addResource(newItem.name, newItem.cost_code);
+            }.bind(this));
+          }
           this.dataSource.paginator = this.paginator;
         };  
-        reader.onerror = function () {  console.log('error is occured while reading file!');  };  
-      } 
-      else {  
-        alert("Please import valid .csv file.");  
-        this.fileReset();  
-      }
-    }  
-    }  
-    
-    uploadListenerDB($event: any): void {  
-      let files = $event.srcElement.files;  
-      if (files[0] != undefined){
-      if (this.isValidCSVFile(files[0])) {  
-        let input = $event.target;  
-        let reader = new FileReader();  
-        reader.readAsText(input.files[0]); 
-        reader.onload = () => {  
-          let csvData = reader.result;  
-          let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);  
-          let headersRow = this.getHeaderArray(csvRecordsArray);  
-          this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length); 
-          this.dataSource = new MatTableDataSource(this.records); 
-          this.gotRecords = true;
-          this.dataSource.paginator = this.paginator;
-          this.records.forEach(function (element) {
-            const newItem = {cost_code: element.cost_code, name: element.name};
-            console.log(newItem);
-            this.resourceService.addResource(newItem.name, newItem.cost_code);
-          }.bind(this));
-        };          
         reader.onerror = function () {  console.log('error is occured while reading file!');  };  
       } 
       else {  
@@ -181,10 +159,3 @@ export interface RES_MODEL {
     }  
 
 }
-
-
-// [{"proj":{"projectId":11,"projectName":"Projec5"},"res":{"resourceId":16,"resourceName":"Masonary","resourceCode":"10 11 12"}},
-// {"proj":{"projectId":11,"projectName":"Projec5"},"res":{"resourceId":15,"resourceName":"Electric","resourceCode":"00 11 12"}},
-// {"proj":{"projectId":11,"projectName":"Projec5"},"res":{"resourceId":18,"resourceName":"Heat","resourceCode":"20 21 12"}},
-// {"proj":{"projectId":11,"projectName":"Projec5"},"res":{"resourceId":3,"resourceName":"cccccc","resourceCode":"7944444444466"}},
-// {"proj":{"projectId":11,"projectName":"Projec5"},"res":{"resourceId":17,"resourceName":"Wheat","resourceCode":"20 11 12"}}]

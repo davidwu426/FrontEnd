@@ -68,6 +68,3 @@ export class ResourceService {
         .subscribe(res => console.log('Done'));
   }
 }
-
-// setHeader{
-//   allow cross, "*"}
