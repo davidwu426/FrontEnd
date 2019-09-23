@@ -13,9 +13,10 @@ import { Subject } from 'rxjs';
 })
 
 export class ProjectService {
-  private _urlr: string = "/assets/resource.json";
-  private _urlpr: string = "/assets/projectRsource.json";
-  private _urlp: string = "/assets/project.json";
+  baseURL: string = "http://192.168.1.122:80800/RM";
+//   private _urlr: string = "/assets/resource.json";
+//   private _urlpr: string = "/assets/projectRsource.json";
+//   private _urlp: string = "/assets/project.json";
   private addRowsSource = new Subject<MatTableDataSource<IResource>>(); //new MatTableDataSource<IEmployee>()
   private currentProjectId = new Subject<IProject>();
 
@@ -53,10 +54,9 @@ export class ProjectService {
   
 
   postProjectResource(prRelation: IProjectResource[]){
-
-    return this.http.post<IProjectResource[]>(this._urlpr, prRelation).subscribe(res => console.log(res));
+    let url = "http://192.168.1.122:8080/RM/projectResource/";
+    return this.http.post<IProjectResource[]>(url, prRelation).subscribe(res => console.log(res));
   }
-
   // addNewColumn(newCol){
   //   let url = "http://192.168.1.122:8080/RM/projectResource/"+PROJECT_DATA.projectId+"/column";
     
