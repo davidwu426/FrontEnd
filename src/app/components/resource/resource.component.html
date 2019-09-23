@@ -12,7 +12,7 @@
     <mat-menu #menu="matMenu">        
       <button mat-menu-item type="button" (click)="toggleAddRow()"><mat-icon class="material-icons option-icons add-row">format_align_left</mat-icon><span>Add Row</span></button>
       <label class="fileContainer">
-        <button mat-menu-item type="submit"><mat-icon class="material-icons option-icons add-row">insert_drive_file</mat-icon>Import CSV
+        <button mat-menu-item type="button"><mat-icon class="material-icons option-icons add-row">insert_drive_file</mat-icon>Import CSV
         <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" title="" />
         </button></label>
     </mat-menu>
@@ -41,5 +41,5 @@
     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
 
 </table>
-<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<mat-paginator [pageSizeOptions]="[5, 10, 20, 30]" showFirstLastButtons></mat-paginator>
 </div>
