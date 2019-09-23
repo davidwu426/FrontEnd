@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { CSVrecord } from './CSVmodel';
 import { ResourceService } from 'src/app/service/resource.service';
 
@@ -17,7 +17,7 @@ export interface RES_MODEL {
     styleUrls: ['./resource.component.css']
   })
 
-  export class ResourceComponent implements OnInit{    
+  export class ResourceComponent implements OnInit {    
     constructor(private resourceService : ResourceService) { }
 
     displayedColumns: string[] = ['name', 'cost_code'];
@@ -113,7 +113,7 @@ export interface RES_MODEL {
           if (confirm("Do you want to upload to Database?")){
             this.records.forEach(function (element) {
               const newItem = {cost_code: element.cost_code, name: element.name};
-              console.log(newItem);
+              //console.log(newItem);
               this.resourceService.addResource(newItem.name, newItem.cost_code);
             }.bind(this));
           }

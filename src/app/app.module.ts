@@ -7,7 +7,7 @@ import { IconsModule } from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Modules
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 //Services
 import {ColumnsService} from './service/columns.service';
@@ -29,8 +29,8 @@ import { RoutingModule } from './routing/routing.module';
 import { ResourceComponent } from './components/resource/resource.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-
-
+// error handling
+// import { InterceptorService } from './service/interceptor.service';
 
 
 @NgModule({
@@ -58,6 +58,10 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
   providers: [
     ColumnsService,
     CellsService,
+    // { provide: HTTP_INTERCEPTORS,
+    //   useClass: InterceptorService,
+    //   multi: true
+    // }
   ],
   bootstrap: [AppComponent]
 })

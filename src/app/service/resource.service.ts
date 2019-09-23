@@ -63,7 +63,7 @@ export class ResourceService {
       resourceName: resourceName,
       resourceCode: resourceCode
     };
-    console.log(obj);
+    //console.log(obj);
     this.http.post(`${this.baseURL}/resource`, obj)
         .subscribe(res => console.log('Done'));
   }

@@ -21,13 +21,19 @@ a{
     color:white;
 }
 
+a:active{
+    color: orange;
+}
+.is-active{
+    color: orange;
+}
 button{
     background-color :black;
     color : white;
     border: none;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    width: 65px;
+    width: 50px;
     height: 50px;
     font-size: 1.5rem;
 }
@@ -36,8 +42,4 @@ button:focus, button:active, button:focus:active{
     background-image: none;
     outline: 0;
     box-shadow: none;
-}
-
-a:active{
-    color: orange;
 }

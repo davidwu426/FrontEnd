@@ -4,11 +4,11 @@
         <mat-nav-list>
             <a mat-list-item routerLink = "/resources" routerLinkActive = "is-active">Resources</a>
             <a mat-list-item routerLink = "/project"   routerLinkActice = "is-active">Project</a>
-            <a mat-list-item routerLink = "/formula"   routerLinkActive = "is-active" > Formula</a>
+            <a mat-list-item routerLink = "/formula"   routerLinkActive = "is-active">Formula</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-        <button (click) = "sidenav.toggle()">></button>
+        <button (click) = "openNav(sidenav)"><span>{{buttonTxt}}</span></button>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
