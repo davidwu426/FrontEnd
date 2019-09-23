@@ -1,0 +1,100 @@
+<br> <br>
+<mat-card class="form_card" >
+        <mat-card-title>
+            <span id = "signup_title">Account Registeration</span>
+        </mat-card-title>
+        
+        <div [formGroup] = "form">
+                <mat-card-content class="cardContent" >
+                        <mat-form-field appearance = "outline" >
+    
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Name" 
+                            formControlName = "name">
+                            
+                            <div *ngIf= "name.touched && name.invalid ">
+                                    <mat-error *ngIf="name.errors.required">Username is required!</mat-error> 
+                                    <mat-error *ngIf="name.errors.minlength">minimum length should be a minimum of {{name.errors.minlength.requiredLength}} characters</mat-error>
+                            </div>
+            
+                        </mat-form-field>
+
+                        <mat-form-field appearance = "outline" >
+    
+                                <mat-label>Email</mat-label>
+                                <input matInput placeholder="example@site.com" 
+                                formControlName = "email">
+                                
+                                <div *ngIf= "email.touched && email.invalid ">
+                                        <mat-error *ngIf="email.errors.required">Username is required!</mat-error> 
+                                        <mat-error *ngIf="email.errors.email">Email address is not valid</mat-error>
+                                </div>
+                
+                            </mat-form-field>
+                        
+                            <mat-form-field appearance = "outline" >
+    
+                                    <mat-label>Confirm Email</mat-label>
+                                    <input matInput placeholder="example@site.com" 
+                                    formControlName = "cemail">
+                                    
+                                    <div *ngIf= "cemail.touched && cemail.invalid || cemail.value !== email.value && email.touched">
+                                            <mat-error *ngIf="cemail.errors.required">You must confirm you email</mat-error> 
+                                            <mat-error *ngIf="cemail.errors.email">Email address is not valid</mat-error>
+                                            <mat-error *ngIf="cemail.value !== email.value ">Email address does not match</mat-error>
+                                    </div>
+                    
+                                </mat-form-field>
+                        <br/>
+                        <mat-form-field appearance = "outline">
+                                <input matInput placeholder="Password" 
+                                [type] = "passwordVisible ? 'text' : 'password'"
+                                formControlName = "password">
+        
+                                <button 
+                                    mat-icon-button matSuffix 
+                                    (click) = "passwordVisible = !passwordVisible">
+                                    <mat-icon>{{passwordVisible? 'visibility' : 'visibility_off'}}</mat-icon>
+                                </button>
+                                
+                                <div *ngIf= "pass.touched && pass.invalid">
+                                        <mat-error *ngIf="pass.errors.required">Password is required!</mat-error> 
+                                        <mat-error *ngIf="pass.errors.minlength">password should be a minimum of {{pass.errors.minlength.requiredLength}} characters</mat-error>
+                                        <mat-error *ngIf="pass.errors.maxlength">password should be a maximum of {{pass.errors.maxlength.requiredLength}} characters</mat-error>
+        
+                                </div>
+                                
+                            </mat-form-field>  
+                        <mat-form-field appearance = "outline">
+                                <input matInput placeholder="confirm password" 
+                                [type] = "passwordVisible ? 'text' : 'password'"
+                                formControlName = "cpassword">
+                                <mat-label>Confirm Password</mat-label>
+                                <button 
+                                    mat-icon-button matSuffix 
+                                    (click) = "passwordVisible = !passwordVisible">
+                                    <mat-icon>{{passwordVisible? 'visibility' : 'visibility_off'}}</mat-icon>
+                                </button>
+                                
+                                <div *ngIf= "pass.touched && pass.invalid || cpass.value !== pass.value && pass.touched">
+                                        <mat-error *ngIf="pass.errors.required">Password is required!</mat-error> 
+                                        <mat-error *ngIf="pass.errors.minlength">password should be a minimum of {{pass.errors.minlength.requiredLength}} characters</mat-error>
+                                        <mat-error *ngIf="pass.errors.maxlength">password should be a maximum of {{pass.errors.maxlength.requiredLength}} characters</mat-error>
+                                        <mat-error *ngIf="cpass.value !== email.value ">Email address does not match</mat-error>
+        
+                                </div>
+                                
+                            </mat-form-field>
+                         
+            
+                        <button mat-raised-button color="primary" >Register</button> <br>
+            
+                        
+                        <div class = "horizontalLayout">
+                                                        
+                        </div>
+            
+                    </mat-card-content>
+        </div>
+    
+    </mat-card> 

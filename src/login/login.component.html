@@ -1,0 +1,56 @@
+
+<mat-card class="form_card" style="text-align: center;" >
+	<mat-card-title>
+		<span id = "loginTitle">{{title}}</span>
+    </mat-card-title>
+    
+    <div [formGroup] = "frm">
+            <mat-card-content class="cardContent" >
+                    <mat-form-field appearance = "fill" >
+
+                        <mat-label>Username</mat-label>
+                        <input matInput placeholder="Username" 
+                        formControlName = "username">
+                        
+                        <div *ngIf= "name.touched && name.invalid ">
+                                <mat-error *ngIf="name.errors.required">Username is required!</mat-error> 
+                                <mat-error *ngIf="name.errors.minlength">minimum length should be a minimum of {{name.errors.minlength.requiredLength}} characters</mat-error>
+                        </div>
+        
+                    </mat-form-field>
+        
+                    <mat-form-field appearance = "fill">
+                        <input matInput placeholder="password" 
+                        [type] = "passwordVisible ? 'text' : 'password'"
+                        formControlName = "password">
+
+                        <button 
+                            mat-icon-button matSuffix 
+                            (click) = "passwordVisible = !passwordVisible">
+                            <mat-icon>{{passwordVisible? 'visibility' : 'visibility_off'}}</mat-icon>
+                        </button>
+                        
+                        <div *ngIf= "pass.touched && pass.invalid">
+                                <mat-error *ngIf="pass.errors.required">Password is required!</mat-error> 
+                                <mat-error *ngIf="pass.errors.minlength">password should be a minimum of {{pass.errors.minlength.requiredLength}} characters</mat-error>
+                                <mat-error *ngIf="pass.errors.maxlength">password should be a maximum of {{pass.errors.maxlength.requiredLength}} characters</mat-error>
+
+                        </div>
+                        
+                    </mat-form-field>
+                    <br/>
+        
+                    <button mat-raised-button color="primary" style="margin-right:5px;">login</button> <br>
+        
+                    <mat-checkbox>Remember me</mat-checkbox> <br>
+                    
+                    <div class = "horizontalLayout">
+                        <button mat-raised-button color="primary" style="margin-right:5px;">Signup</button> <br>
+                        <a href="">Forgot password?</a>
+                    </div>
+        
+                </mat-card-content>
+    </div>
+
+</mat-card> 
+

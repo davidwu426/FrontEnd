@@ -1,0 +1,34 @@
+
+/* #loginTitle{
+    font-size: 2em;
+    color: #fcba03;
+    font-style: italic;
+    font-weight: bold;
+
+} 
+TODO: wait to add specific implementation of this component fi app module
+*/
+
+.form_card{
+    background-color: white;
+    margin-top: 10em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+
+}
+.cardContent{
+    display: flex;
+    flex-flow: column;
+  }
+
+  mat-checkbox{
+      align-self: flex-start;
+  }
+
+.horizontalLayout{
+    display: flex;
+    flex-flow: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
