@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 export interface Cell{
@@ -23,9 +24,14 @@ const CELL_DATA : Cell[] = [
 export class CellsService {
   private cells = new BehaviorSubject<Cell[]>(CELL_DATA);
   data = this.cells.asObservable();
-  constructor() { }
+  constructor(private htppClient : HttpClient) { }
 
   changeCells(cells : Cell[]){
     this.cells.next(cells);
+  }
+
+  getCellByResourceAndColumn(resourceId, columnId){
+    let url = "http://192.168.1.122:8080/RM/column"+columnId+"/resource/"+resourceId+"/cell"
+    return this.htppClient.get(url)
   }
 }

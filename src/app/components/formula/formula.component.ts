@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ColumnsService, Column } from 'src/app/service/columns.service';
+import { ColumnsService} from 'src/app/service/columns.service';
 import { ResourceService } from 'src/app/service/resource.service';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { Cell } from 'src/app/service/cells.service';
+import { Cell, CellsService } from 'src/app/service/cells.service';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -18,61 +18,77 @@ export interface ProjectResources{
 })
 
 export class FormulaComponent implements OnInit {
-
-  colData: Column[];
-  projectResourceData  : ProjectResources[];
-  displayedColumns2 : string[] = []; 
+  
+  colData: any ;
+  d : any;
+  projectResource : any;
+  resource : any = [];
+  displayedColumns : Map<number,string> = new Map();
   allColumns: string[] = [];
   dataSource : Object[] = [];
-  // dataSource = ELEMENT_DATA;
 
-  constructor(private columnService : ColumnsService, private resourceService : ResourceService, private library : FaIconLibrary) { 
+  
+  constructor(private columnService : ColumnsService, private resourceService : ResourceService,private cellService : CellsService ,private library : FaIconLibrary) { 
     library.addIcons(faCheck);
   }
-
+  
   ngOnInit() {
-    this.columnService.data.subscribe(data => this.colData = data);
-    this.resourceService.data.subscribe(data => this.projectResourceData = data);
 
-    // setting up the total number of columns and the ones dispayed;
-    for(var i = 0 ; i < this.colData.length;i++){
-      if(this.colData[i].colScope === true){
-        this.displayedColumns2.push(this.colData[i].colName);
-      }
-      this.allColumns.push(this.colData[i].colName);
-    }
-    //this.dataSource = this.compileInformation();
-    //console.log(this.dataSource);
-    this.dataSource = this.compileInformation();
-    //console.log(this.dataSource);
-    //console.log(this.displayedColumns2);
-    }
+    // getting the columns
+    this.columnService.getColumns().subscribe(res => {
+      this.colData = res ;
+      this.colData.forEach(element=>{
+        if(!this.displayedColumns.has(element.colId) && element.col_scope === "1"){
+          //console.log(element.col_scope);
+          this.displayedColumns.set(element.colId,element.col_name);
+        }
+      })
+      //console.log(this.displayedColumns);
+    }) ;
 
-  compileInformation(){
-
-    // Making the columns for the table
-    for(var i = 0; i < this.colData.length; i++){
-      let index = this.displayedColumns2.indexOf(this.colData[i].colName);
-      if(index === -1 && this.colData[i].colScope === true){
-        this.displayedColumns2.push(this.colData[i].colName);
-      }
-    }
-
-    // Making the object for each row
-    var customObject : Object[] = [];
-    for(var i = 0 ; i < this.projectResourceData.length;i++){
-      let temp : Object = {};
-      for(var x = 0 ; x < this.displayedColumns2.length;x++){
-        temp[this.displayedColumns2[x]] = "water";
-      }
-      temp['project'] = 1;
-      temp['resourceId'] = this.projectResourceData[i].resourceId;
-      customObject.push(temp);
-    }
-    return customObject;
+    // get all the resources
+    this.resourceService.getResourceByProject(11).subscribe(res => {
+      this.projectResource = res;
+      this.compileResources(); 
+      console.log(this.resource);
+    });
+  }
+  
+  // compilinng the list of resourceIds
+  compileResources(){
+    this.projectResource.forEach( element =>{
+      this.resource.push(element.res.resourceId);
+    })
   }
 
-  changeInput(data,e){
+  // setting up the displayed columns
+  compileDisplayColumns(){
+    this.colData.forEach(element =>{
+      if(element.col_scope === true){
+        console.log(element);
+        this.displayedColumns.set(element.colId, element.col_name);
+      }
+      this.allColumns.push(element.col_name);
+    })
+  }
+
+  // retrieving data for each cell from the backend
+  compileTableCells(){
+    let temp : Object[] = [];
+    this.resource.forEach(resourceElement =>{
+      var customObject : Object = {};
+      for(var key of this.displayedColumns.keys()){
+        this.cellService.getCellByResourceAndColumn(resourceElement,key).toPromise().then(res=> {
+          //customObject[this.displayedColumns.get(key)] = res;
+          console.log(res);
+        })
+      }
+      temp.push(customObject);
+    })
+    return temp;
+  }
+
+  compileDisplayColumn(){
 
   }
 }

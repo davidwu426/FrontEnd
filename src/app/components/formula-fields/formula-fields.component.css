@@ -1,66 +1,50 @@
-mat-list{
-    overflow:scroll;
-    color: black;
-    height: 100%;
-    width: 100%;
-    padding: 20px;
-}
-mat-grid-tile{
+
+.mat-grid-tile{
     border: 1px solid black;
 }
-
-mat-list-item{
-    border: 1px solid lightgrey;
-    padding: 0;
-}
-.mat-list-base .mat-list-item .mat-list-item-content{
-    padding: 0 !important;
-}
-
-mat-list-item div{
-    display: inline-block;
-}
-#project-field-scope > mat-list-item:nth-child(2n+1){
-    background-color:lightgrey;
-    color: black;
-}
-
-#project-field-scope > mat-list-item:nth-child(2n){
-    background-color: white;
-    color: black;
-}
-
-#project-survey-field > mat-list-item:nth-child(1){
-    margin: 0;
-}
-
-#project-survey-field > mat-list-item{
-    color:black;
-    background-color: lightgrey;
-    margin: 10px 0;
-}
-
-.survey-fields-trash{
-    width: 10%;
-}
-
-.survey-fields-container{
-    width: 100%;
-    border-right: 1px solid lightgrey;
-}
-
-
-
-.survey-fields{
-    width: 30%;
+ul{
     height: 100%;
-    border-right: 1px solid grey;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
 }
-
+#project-survey-title{
+    width: 80%;
+    float: left;
+}
+#project-survey-trash{
+    width: 20%;
+    float: right;
+}
+div{
+    padding-left: 15px;
+    display: flex;
+    height: 50px;
+    margin-bottom: 10px;
+    background-color: lightgrey;
+    align-items: center;
+}
 .trash{
     color: red;
 }
-#plus-square{
-    color: green;
+
+.plus-square{
+    color: orangered;
+}
+.survey-fields{
+    margin:0;
+    width: 27%;
 }
 
+.survey-fields-trash{
+    margin:0;
+}
+
+.scope-fields{
+    align-items: center;
+    width: 80%;
+}
+
+.scope-fields-trash{
+    width: 20%;
+}
