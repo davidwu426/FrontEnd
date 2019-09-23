@@ -1,0 +1,10 @@
+<mat-form-field>
+    <mat-select [(value)]= "default" (selectionChange)= "changeProjectId($event)" >
+    <mat-option *ngFor = "let project of dataSource.data" [value] = "project" 
+                [routerLink] = "['/project']" [queryParams] = "{id: project.projectId}" routerLinkActive = "active">
+                {{project.projectName}} 
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<app-project-rsource></app-project-rsource>
+<app-project-row-manager></app-project-row-manager>

@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { CSVrecord } from './CSVmodel';
 import { ResourceService } from 'src/app/service/resource.service';
 
@@ -9,7 +9,7 @@ export interface RES_MODEL {
     cost_code: string;
   }
 
-  const RESOURCE_DATA: RES_MODEL[] = [];
+  const RESOURCE_DATA1: RES_MODEL[] = [];
 
   @Component({
     selector: 'app-resource',
@@ -17,11 +17,12 @@ export interface RES_MODEL {
     styleUrls: ['./resource.component.css']
   })
 
-  export class ResourceComponent implements OnInit{    
+  export class ResourceComponent implements OnInit {    
     constructor(private resourceService : ResourceService) { }
 
     displayedColumns: string[] = ['name', 'cost_code'];
-    dataSource = new MatTableDataSource(RESOURCE_DATA);
+    public RESOURCE_DATA: RES_MODEL[] = [];
+    dataSource = new MatTableDataSource(this.RESOURCE_DATA);
     RScode_in: number = undefined;
     RSname_in: string = undefined;
     public show:boolean = false;
@@ -36,13 +37,13 @@ export interface RES_MODEL {
       this.resourceService.get_Allresources().subscribe((data: any[]) => {
         data.forEach(function (element) {
           const newItem = {cost_code: element.resourceCode, name: element.resourceName};
-          RESOURCE_DATA.push(newItem);
-        });        
-        this.dataSource = new MatTableDataSource(RESOURCE_DATA);
+          this.RESOURCE_DATA.push(newItem);
+        }.bind(this));        
+        this.dataSource = new MatTableDataSource(this.RESOURCE_DATA);
         this.dataSource.paginator = this.paginator;
-      });        
-      this.dataSource = new MatTableDataSource(RESOURCE_DATA);
-      this.dataSource.paginator = this.paginator;
+      });   
+      this.dataSource = new MatTableDataSource(this.RESOURCE_DATA);
+      this.dataSource.paginator = this.paginator;            
     }
 
     applyFilter(filterValue: string) {
@@ -56,7 +57,7 @@ export interface RES_MODEL {
         const formatCode = this.RScode_in.toString().replace(/\B(?=(\d{2})+(?!\d))/g, " ");      
       if (!this.gotRecords){        
         const newItem = {cost_code: formatCode, name: this.RSname_in};
-        RESOURCE_DATA.forEach(function (element) {
+        this.RESOURCE_DATA.forEach(function (element) {
         if (JSON.stringify(element.cost_code) === JSON.stringify(newItem.cost_code)) {
             isDuplicate = true;
             alert("Can't insert resource with same code!");
@@ -64,7 +65,7 @@ export interface RES_MODEL {
         }
         });
         if (!isDuplicate) {
-          RESOURCE_DATA.push(newItem);
+          this.RESOURCE_DATA.push(newItem);
           this.RScode_in = null;
           this.RSname_in = '';
           this.dataSource.paginator = this.paginator;
@@ -112,8 +113,8 @@ export interface RES_MODEL {
           this.gotRecords = true;
           if (confirm("Do you want to upload to Database?")){
             this.records.forEach(function (element) {
-              const newItem = {cost_code: element.cost_code, name: element.name};
-              console.log(newItem);
+              const newItem = {cost_code: element.headersRow[0], name: element.headersRow[1]};
+              //console.log(newItem);
               this.resourceService.addResource(newItem.name, newItem.cost_code);
             }.bind(this));
           }

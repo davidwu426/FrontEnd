@@ -7,7 +7,7 @@ import { IconsModule } from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Modules
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 //Services
 import {ColumnsService} from './service/columns.service';
@@ -19,6 +19,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormulaFieldsComponent } from './components/formula-fields/formula-fields.component';
 import { FormulaComponent } from './components/formula/formula.component';
+import {ProjectSelectComponent} from'./components/project/project-select/project-select.component';
+import {ProjectRsourceComponent} from './components/project/project-rsource/project-rsource.component';
+import {ProjectRowManagerComponent} from './components/project/project-row-manager/project-row-manager.component';
 
 //external modules 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -29,8 +32,8 @@ import { RoutingModule } from './routing/routing.module';
 import { ResourceComponent } from './components/resource/resource.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-
-
+// error handling
+// import { InterceptorService } from './service/interceptor.service';
 
 
 @NgModule({
@@ -41,6 +44,9 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     FormulaComponent,
     ResourceComponent,
     FormulaFieldsComponent,
+    ProjectRowManagerComponent,
+    ProjectRsourceComponent,
+    ProjectSelectComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +64,10 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
   providers: [
     ColumnsService,
     CellsService,
+    // { provide: HTTP_INTERCEPTORS,
+    //   useClass: InterceptorService,
+    //   multi: true
+    // }
   ],
   bootstrap: [AppComponent]
 })

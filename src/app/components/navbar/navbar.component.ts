@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSidenavModule, MatSidenav} from '@angular/material/sidenav';
 
 
 @Component({
@@ -11,8 +11,16 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 export class NavbarComponent implements OnInit {
 
   constructor() { }
-
+  buttonTxt = ">";
   ngOnInit() {
+  }
+
+  openNav(sidenav: MatSidenav){
+    sidenav.toggle();
+    if (this.buttonTxt === ">")
+      this.buttonTxt = "<";
+    else
+      this.buttonTxt = ">";
   }
 
 }
