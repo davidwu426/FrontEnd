@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ColumnsService, Column } from 'src/app/service/columns.service';
+import { ColumnsService, Column, InputColumn } from 'src/app/service/columns.service';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faTrash, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import {Subscription} from 'rxjs';
@@ -24,7 +24,7 @@ export class FormulaFieldsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.columnService.data.subscribe(data => this.data = data);
-    //this.columnService.getColumns().subscribe(data => this.data2 = data);
+    this.columnService.getColumns().subscribe(data => {this.data2 = data; console.log(this.data2)});
   }
   
   ngOnDestroy(){
@@ -50,16 +50,29 @@ export class FormulaFieldsComponent implements OnInit, OnDestroy {
     this.columnService.editCols(this.data);
   }
 
-  removeColumn(column : Column){
-    var index = this.data.indexOf(column);
-    this.data.splice(index,1);
-    this.columnService.editCols(this.data);
+  removeColumn(colId : number){
+    this.columnService.removeColumn(colId).subscribe(
+      ()=> console.log("column with id" + colId + "has been deleted"),
+      (err) => console.log(err));
+
+      for(var i = 0 ; i < this.data2.length;i++){
+        if(this.data2[i].colId === colId){
+          this.data2.splice(i,1);
+        }
+      }
   }
 
   addColumn(){
-    let colz : Column = 
-    {coldId: 4, colFormula:"none", colName:"", colScope :true, colType : "string", projectId :1}
-    this.data.push(colz);
+
+    let newCol : InputColumn = {
+      col_formula : "false",
+      col_name : "",
+      col_scope : true,
+      col_type : "",
+    }
+    
+    this.columnService.addNewColumn(newCol);
+    this.data2.push(newCol);
   }
 
   saveColumn(){

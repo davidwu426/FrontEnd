@@ -9,8 +9,16 @@ export interface Column{
   colName :  string,
   colScope : boolean,
   colType : string,
-  projectId : number,
+  projectId: number,
 }
+
+export interface InputColumn{
+  col_formula : string,
+  col_name :  string,
+  col_scope : boolean,
+  col_type : string
+}
+
 
 export interface Project{
   projectId : number,
@@ -26,9 +34,9 @@ const PROJECT_DATA : Project = {
 const COLUMN_DATA : Column[]= [
   {coldId : 1, colFormula : "none", colName : "Resource Name", colScope: true, colType: "Text", projectId:1},
   {coldId : 2, colFormula : "none", colName : "Resource Code", colScope: true, colType: "Text", projectId:1},
-  {coldId: 3, colFormula:"none", colName:"Quantity", colScope :false, colType : "Number", projectId :1},
-  {coldId: 4, colFormula:"none", colName:"Price", colScope :false, colType : "Number", projectId :1},
-  {coldId: 5, colFormula:"none", colName:"Total", colScope :false, colType : "Formula", projectId :1},
+  {coldId: 3, colFormula:"none", colName:"Quantity", colScope :true, colType : "Number", projectId :1},
+  {coldId: 4, colFormula:"none", colName:"Price", colScope :true, colType : "Number", projectId :1},
+  {coldId: 5, colFormula:"none", colName:"Total", colScope :true, colType : "Formula", projectId :1},
   {coldId: 6, colFormula:"none", colName:"X", colScope :false, colType : "Number", projectId :1},
   {coldId: 7, colFormula:"none", colName:"XX", colScope :false, colType : "Formula", projectId :1},
   {coldId: 8, colFormula:"none", colName:"O", colScope :false, colType : "Number", projectId :1},
@@ -42,14 +50,12 @@ const COLUMN_DATA : Column[]= [
 ]
 
 
-
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class ColumnsService {
   constructor(private httpClient : HttpClient) { }
-
 
   private cols = new BehaviorSubject<Column[]>(COLUMN_DATA);
   data = this.cols.asObservable();
@@ -58,10 +64,22 @@ export class ColumnsService {
     this.cols.next(cols);
   }
 
+
   getColumns(){
     let url = "http://192.168.1.122:8080/RM/project/"+PROJECT_DATA.projectId+"/columns";
-    //console.log(url);
     return this.httpClient.get(url);
+  }
+  
+  addNewColumn(newCol){
+    let url = "http://192.168.1.122:8080/RM/project/"+PROJECT_DATA.projectId+"/column";
+    
+    this.httpClient.post<InputColumn>(url, newCol).subscribe(res => console.log(res));
+  }
+
+  removeColumn(colId : number){
+    let url = "http://192.168.1.122:8080/RM/column/"+colId;
+    console.log(colId);
+    return this.httpClient.delete(url);
   }
 
 }

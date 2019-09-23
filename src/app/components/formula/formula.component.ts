@@ -44,8 +44,8 @@ export class FormulaComponent implements OnInit {
     //this.dataSource = this.compileInformation();
     //console.log(this.dataSource);
     this.dataSource = this.compileInformation();
-    console.log(this.dataSource);
-    console.log(this.displayedColumns2);
+    //console.log(this.dataSource);
+    //console.log(this.displayedColumns2);
     }
 
   compileInformation(){
@@ -53,7 +53,7 @@ export class FormulaComponent implements OnInit {
     // Making the columns for the table
     for(var i = 0; i < this.colData.length; i++){
       let index = this.displayedColumns2.indexOf(this.colData[i].colName);
-      if(index === -1){
+      if(index === -1 && this.colData[i].colScope === true){
         this.displayedColumns2.push(this.colData[i].colName);
       }
     }
