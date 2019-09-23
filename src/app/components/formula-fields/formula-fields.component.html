@@ -10,11 +10,11 @@
             </mat-list-item>
             
             <!-- Project Field Scope item list-->
-            <mat-list-item   *ngFor = "let col of data">
+            <mat-list-item   *ngFor = "let col of data2">
                 <div>
-                    <span class = "scope-fields">{{col.colName}}</span>
+                    <span class = "scope-fields">{{col.col_name}}</span>
                     <span>
-                        <input [checked] = "col.colScope" (change) = "changeScope(col,$event)" [disabled] = "col.colName === 'Resource Name' || col.colName === 'Resource Code'" type = "checkbox">
+                        <input type = "checkbox" [checked] = "col.col_scope" (change) = "changeScope(col, $event)" [disabled] = "col.col_name === 'Resource Name' || col.col_name === 'Resource Code'"  >
                     </span>
                 </div>
             </mat-list-item>
@@ -31,16 +31,16 @@
             </mat-list-item>
      
             <!-- Project Survey Fields List-->
-            <mat-list-item *ngFor = "let col of data">
+            <mat-list-item *ngFor = "let col of data2">
                     <div class= "survey-fields">
                         Field
                         <br>
-                        <input [disabled] = "col.colName === 'Resource Name' || col.colName === 'Resource Code'"type = "text" [value] = "col.colName" (change) ="changeColName(col, $event)" >
+                        <input [disabled] = "col.col_name === 'Resource Name' || col.col_name === 'Resource Code'"type = "text" [value] = "col.col_name" (change) ="changeColName(col, $event)" >
                     </div>
                     <div class = "survey-fields">
                         type
                         <br>
-                        <select [disabled] = "col.colName === 'Resource Name' || col.colName === 'Resource Code'"  #type [value] = "col.colType" (change) ="changeColType(col, $event)">
+                        <select [disabled] = "col.col_name === 'Resource Name' || col.col_name === 'Resource Code'"  #type [value] = "col.col_type" (change) ="changeColType(col, $event)">
                             <option value = "Text">Text</option>
                             <option value = "Number">Number</option>
                             <option value ="Formula">Formula</option>
@@ -50,11 +50,11 @@
                         <span *ngIf = "type.value === 'Formula'">
                             Formula
                             <br>
-                            <input type = "text" [value] = "col.colName" >
+                            <input type = "text" [value] = "col.col_name" >
                         </span>
                     </div>
                     <div class = "survey-fields-trash">
-                        <button  *ngIf = "col.colName !== 'Resource Name' && col.colName !== 'Resource Code'" mat-icon-button (click) = "removeColumn(col)"> 
+                        <button  *ngIf = "col.col_name !== 'Resource Name' && col.col_name !== 'Resource Code'" mat-icon-button (click) = "removeColumn(col.colId, $index)"> 
                             <fa-icon class = "trash" icon="trash" size = "lg"></fa-icon>
                         </button>
                     </div>
