@@ -20,6 +20,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormulaFieldsComponent } from './components/formula-fields/formula-fields.component';
 import { FormulaComponent } from './components/formula/formula.component';
+import {ProjectSelectComponent} from'./components/project/project-select/project-select.component';
+import {ProjectRsourceComponent} from './components/project/project-rsource/project-rsource.component';
+import {ProjectRowManagerComponent} from './components/project/project-row-manager/project-row-manager.component';
 
 //external modules 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';

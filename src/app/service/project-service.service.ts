@@ -13,11 +13,18 @@ import { Subject } from 'rxjs';
 })
 
 export class ProjectService {
+<<<<<<< HEAD
   baseURL: string = "http://192.168.1.122:8080/RM";
   // private _urlr: string = "/assets/resource.json";
   private _urlpr: string = "/assets/projectRsource.json";
   // private _urlp: string = "/assets/project.json";
 
+=======
+  baseURL: string = "http://192.168.1.122:80800/RM";
+//   private _urlr: string = "/assets/resource.json";
+//   private _urlpr: string = "/assets/projectRsource.json";
+//   private _urlp: string = "/assets/project.json";
+>>>>>>> 7bcda776763320f69bc1ec33075a0d774bb8ca7b
   private addRowsSource = new Subject<MatTableDataSource<IResource>>(); //new MatTableDataSource<IEmployee>()
   private currentProjectId = new Subject<IProject>();
 
@@ -60,10 +67,21 @@ export class ProjectService {
   
 
   postProjectResource(prRelation: IProjectResource[]){
+<<<<<<< HEAD
     for(var i = 0; i< prRelation.length ; i++){
       let url = "http://192.168.1.122:8080/RM/project/" + prRelation[i].projectId + "/resource/" + prRelation[i].resourceId;
       return this.http.post<IProjectResource[]>(url, null).subscribe(res => console.log(res));
     }
   }
 
+=======
+    let url = "http://192.168.1.122:8080/RM/projectResource/";
+    return this.http.post<IProjectResource[]>(url, prRelation).subscribe(res => console.log(res));
+  }
+  // addNewColumn(newCol){
+  //   let url = "http://192.168.1.122:8080/RM/projectResource/"+PROJECT_DATA.projectId+"/column";
+    
+  //   this.http.post<InputColumn>(url, newCol).subscribe(res => console.log(res));
+  // }
+>>>>>>> 7bcda776763320f69bc1ec33075a0d774bb8ca7b
 }

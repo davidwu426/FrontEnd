@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ColumnsService, Column, InputColumn } from 'src/app/service/columns.service';
+import { ColumnsService, InputColumn } from 'src/app/service/columns.service';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faTrash, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import {Subscription} from 'rxjs';
@@ -12,69 +12,65 @@ import {Subscription} from 'rxjs';
 
 export class FormulaFieldsComponent implements OnInit, OnDestroy {
 
-  private subscription : Subscription;
+  //private subscription : Subscription;
 
   // data for the table for columns for scope
-  data : Column[];
-  data2 : any;
+  data : any;
 
   constructor(private columnService : ColumnsService,library : FaIconLibrary) {
     library.addIcons(faTrash, faPlusSquare);
    }
 
   ngOnInit() {
-    this.subscription = this.columnService.data.subscribe(data => this.data = data);
-    this.columnService.getColumns().subscribe(data => {this.data2 = data; console.log(this.data2)});
+    //this.subscription = this.columnService.data.subscribe(data => this.data = data);
+    this.columnService.getColumns().subscribe(data => {this.data = data;});
   }
   
   ngOnDestroy(){
-    this.subscription.unsubscribe();
-    console.log("exiting formula-fields component");
   }
 
-  changeColName(col, e){
-    var index = this.data.indexOf(col);
-    this.data[index].colName = e.target.value;
-    this.columnService.editCols(this.data);
+  changeColName(e, i){
+    this.data[i].col_name = e.target.value;
   }
 
-  changeScope(col, e){
-    var index = this.data.indexOf(col);
-    this.data[index].colScope = !this.data[index].colScope;
-    this.columnService.editCols(this.data);
+  changeScope(i){
+    this.data[i].col_scope = !this.data[i].col_scope;
   }
 
-  changeColType(col,e){
-    var index = this.data.indexOf(col);
-    this.data[index].colType = e.target.value;
-    this.columnService.editCols(this.data);
+  changeColType(e,i){
+    this.data[i].col_type = e.target.value;
   }
 
-  removeColumn(colId : number){
+  changeFormula(e,i){
+    this.data[i].col_formula = e.target.value;
+  }
+
+  removeColumn(col, i){
+    let colId = col.colId;
     this.columnService.removeColumn(colId).subscribe(
-      ()=> console.log("column with id" + colId + "has been deleted"),
+      ()=> {console.log("column with id" + colId + "has been deleted")}
+      ,
       (err) => console.log(err));
-
-      for(var i = 0 ; i < this.data2.length;i++){
-        if(this.data2[i].colId === colId){
-          this.data2.splice(i,1);
-        }
-      }
+      this.data.splice(i,1);
   }
 
   addColumn(){
 
     let newCol : InputColumn = {
+      colId: 0,
       col_formula : "false",
-      col_name : "",
-      col_scope : true,
-      col_type : "",
+      col_name : "new field",
+      col_scope : 0,
+      col_type : "Text",
     }
-    
-    this.columnService.addNewColumn(newCol);
-    this.data2.push(newCol);
-  }
 
+    this.columnService.addNewColumn(newCol).subscribe((res) =>{
+      newCol.colId = res;
+      this.data.push(newCol);
+      //console.log(newCol);
+    });
+
+  }
   saveColumn(){
     let canUpdate = true;
     for(var i = 0 ; i < this.data.length-1;i++){
@@ -85,13 +81,5 @@ export class FormulaFieldsComponent implements OnInit, OnDestroy {
         }
       }
     }
-
-    if(canUpdate){
-      console.log("saved column")
-      this.columnService.editCols(this.data);
-    }else{
-      alert("Please have columns with different names");
-    }
   }
-
 }
