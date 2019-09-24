@@ -3,66 +3,60 @@
     
     <!-- Project Field Scope Tile-->
     <mat-grid-tile rowspan = "2" colspan = "1">
-        <mat-list id = "project-field-scope">
-            <!-- Project Field Scope Toolbar-->
-            <mat-list-item>
-                Project Scope Fields
-            </mat-list-item>
-            
-            <!-- Project Field Scope item list-->
-            <mat-list-item   *ngFor = "let col of data2">
-                <div>
-                    <span class = "scope-fields">{{col.col_name}}</span>
-                    <span>
-                        <input type = "checkbox" [checked] = "col.col_scope" (change) = "changeScope(col, $event)" [disabled] = "col.col_name === 'Resource Name' || col.col_name === 'Resource Code'"  >
-                    </span>
-                </div>
-            </mat-list-item>
-        </mat-list>
+        <ul>
+            <div id = "project-scope-title">Project Scope Fields</div>
+            <div *ngFor = "let col of data; let i = $index">
+                <span class = "scope-fields">{{col.col_name}}</span>
+                <span class = "scope-fields-trash">
+                    <input type = "checkbox" [checked] = "col.col_scope" (change) = "changeScope(i)" [disabled] = "col.col_name === 'Resource Name' || col.col_name === 'Resource Code'"  >
+                </span>
+            </div>
+        </ul>
+        
     </mat-grid-tile>
     
     <!-- Project Survey Fields-->
     <mat-grid-tile rowspan = "2" colspan ="3">
         
-        <mat-list id ="project-survey-field">
-            <!-- Project Survey Fields ToolBar-->
-            <mat-list-item>
-                Project Survey Fields
-            </mat-list-item>
-     
-            <!-- Project Survey Fields List-->
-            <mat-list-item *ngFor = "let col of data2">
-                    <div class= "survey-fields">
-                        Field
+        <ul>
+            <div>
+                <span id = "project-survey-title">
+                    Project Survey Fields
+                </span>
+                <span id = "project-survey-trash">
+                    Add Field <button mat-icon-button (click) = "addColumn()"> <fa-icon id = "plus-square" icon="plus-square" size = "lg"></fa-icon></button>
+                </span>
+            </div>
+            <div *ngFor = "let col of data; let i = index;">
+                <div class= "survey-fields">
+                    Field
+                    <br>
+                    <input [disabled] = "col.col_name === 'Resource Name' || col.col_name === 'Resource Code'"type = "text" [value] = "col.col_name" (change) ="changeColName($event, i)" >
+                </div>
+                <div class = "survey-fields">
+                    Type
+                    <br>
+                    <select [disabled] = "col.col_name === 'Resource Name' || col.col_name === 'Resource Code'"  #type [value] = "col.col_type" (change) ="changeColType($event,i)">
+                        <option value = "Text">Text</option>
+                        <option value = "Number">Number</option>
+                        <option value ="Formula">Formula</option>
+                    </select>
+                </div>
+                <div class = "survey-fields">
+                    <span *ngIf = "type.value === 'Formula'">
+                        Formula
                         <br>
-                        <input [disabled] = "col.col_name === 'Resource Name' || col.col_name === 'Resource Code'"type = "text" [value] = "col.col_name" (change) ="changeColName(col, $event)" >
-                    </div>
-                    <div class = "survey-fields">
-                        type
-                        <br>
-                        <select [disabled] = "col.col_name === 'Resource Name' || col.col_name === 'Resource Code'"  #type [value] = "col.col_type" (change) ="changeColType(col, $event)">
-                            <option value = "Text">Text</option>
-                            <option value = "Number">Number</option>
-                            <option value ="Formula">Formula</option>
-                        </select>
-                    </div>
-                    <div class = "survey-fields">
-                        <span *ngIf = "type.value === 'Formula'">
-                            Formula
-                            <br>
-                            <input type = "text" [value] = "col.col_name" >
-                        </span>
-                    </div>
-                    <div class = "survey-fields-trash">
-                        <button  *ngIf = "col.col_name !== 'Resource Name' && col.col_name !== 'Resource Code'" mat-icon-button (click) = "removeColumn(col.colId, $index)"> 
-                            <fa-icon class = "trash" icon="trash" size = "lg"></fa-icon>
-                        </button>
-                    </div>
-            </mat-list-item>
-        </mat-list>
-        <div>
-            Add Fields <button mat-icon-button (click) = "addColumn()"> <fa-icon id = "plus-square" icon="plus-square" size = "lg"></fa-icon></button>
-        </div>
+                        <input type = "text" [value] = ""  (change) = "changeFormula($event, i )">
+                    </span>
+                </div>
+                <div class = "survey-fields-trash">
+                    <button  *ngIf = "col.col_name !== 'Resource Name' && col.col_name !== 'Resource Code'" mat-icon-button (click) = "removeColumn(col,i)"> 
+                        <fa-icon class = "trash" icon="trash" size = "lg"></fa-icon>
+                    </button>
+                </div>
+            </div>
+        </ul>
+        
     </mat-grid-tile>
 </mat-grid-list>
 <div>

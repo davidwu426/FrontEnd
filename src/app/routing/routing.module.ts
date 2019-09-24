@@ -6,6 +6,7 @@ import { LoginComponent } from '../components/login/login.component';
 import { SignupComponent } from '../components/signup/signup.component';
 import { ResourceComponent } from '../components/resource/resource.component';
 import { FormulaFieldsComponent } from '../components/formula-fields/formula-fields.component';
+import { ProjectSelectComponent } from '../components/project/project-select/project-select.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 
 const appRoutes: Routes = [
@@ -19,6 +20,11 @@ const appRoutes: Routes = [
 
   {path : 'formula/fields', component : FormulaFieldsComponent},
 ];
+
+  {path : "formula/fields", component : FormulaFieldsComponent},
+
+  {path : "project", component : ProjectSelectComponent}
+]
 
 @NgModule({
   declarations: [],

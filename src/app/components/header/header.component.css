@@ -10,6 +10,7 @@ div{
 table{
     align-items: flex-end;
     margin-right: 10px;
+    table-layout: fixed; 
 }
 td{
     background-color:white;
