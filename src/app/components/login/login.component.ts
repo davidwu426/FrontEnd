@@ -34,6 +34,9 @@ export class LoginComponent implements OnInit {
   // TODO: make this work
   validateForm() {
     console.log('sure');
+    if (this.frm.valid) {
+      this.router.navigate(['/resources']);
+    }
     }
 
   get name() {

@@ -1,4 +1,4 @@
-
+<!-- <app-header></app-header> -->
 <mat-card class="form_card" style="text-align: center;" >
 	<mat-card-title>
 		<span id = "loginTitle">{{title}}</span>
@@ -43,7 +43,7 @@
                     <button mat-raised-button color="primary"  [disabled] = "!frm.valid" (click) = "validateForm()"  >
                                 
                             <router-outlet>
-                                    <a *ngIf="frm.valid === true" routerLink="/home">Login</a>
+                                    <a *ngIf="frm.valid === true" >Login</a>
                                     <a *ngIf="frm.valid === false"  class = "disabled"> Login</a>
                             </router-outlet>
                             
@@ -62,6 +62,6 @@
     </div>
 
 </mat-card> 
-
+<!-- 
 <div> Valid: {{ frm.valid ? '👍' : '👎' }} </div>
-{{ frm.errors | json}}
+{{ frm.errors | json}} -->

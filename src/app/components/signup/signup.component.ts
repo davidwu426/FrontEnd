@@ -33,11 +33,12 @@ export class SignupComponent implements OnInit {
     this.form.valueChanges.subscribe(console.log);
   }
 
-//TODO: make this work
+  //TODO: make this work
   validateForm() {
-    console.log('sure');
+    if(this.form.valid){
+      this.router.navigate(['/']);
     }
-
+  }
   raisePasswordMismatch() {
     if (this.pass.touched && this.cpass.value !== '' ) {
       if (this.pass.value !== '') {
@@ -48,6 +49,7 @@ export class SignupComponent implements OnInit {
       }
     }
   }
+
   get name() {
     return this.form.get('name');
   }
@@ -69,4 +71,3 @@ export class SignupComponent implements OnInit {
   }
 
 }
-
