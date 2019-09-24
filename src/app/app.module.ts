@@ -28,6 +28,8 @@ import { AngularMaterialModule} from './angular-material/angular-material.module
 import { RoutingModule } from './routing/routing.module';
 import { ResourceComponent } from './components/resource/resource.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 // error handling
 // import { InterceptorService } from './service/interceptor.service';
@@ -41,6 +43,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
     FormulaComponent,
     ResourceComponent,
     FormulaFieldsComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

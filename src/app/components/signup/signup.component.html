@@ -5,32 +5,35 @@
         </mat-card-title>
         
         <div [formGroup] = "form">
+
                 <mat-card-content class="cardContent" >
+
+                        <!-- name -->
                         <mat-form-field appearance = "outline" >
     
                             <mat-label>Name</mat-label>
                             <input matInput placeholder="Name" 
                             formControlName = "name">
                             
-                            <div *ngIf= "name.touched && name.invalid ">
+                            <div *ngIf= "name.touched && name.invalid && name.value !== ''">
                                     <mat-error *ngIf="name.errors.required">Username is required!</mat-error> 
                                     <mat-error *ngIf="name.errors.minlength">minimum length should be a minimum of {{name.errors.minlength.requiredLength}} characters</mat-error>
                             </div>
             
                         </mat-form-field>
-
+                        <!-- email -->
                         <mat-form-field appearance = "outline" >
     
                                 <mat-label>Email</mat-label>
                                 <input matInput placeholder="example@site.com" 
                                 formControlName = "email">
                                 
-                                <div *ngIf= "email.touched && email.invalid ">
+                                <div *ngIf= "email.touched && email.invalid && email.value !== ''">
                                         <mat-error *ngIf="email.errors.required">Username is required!</mat-error> 
                                         <mat-error *ngIf="email.errors.email">Email address is not valid</mat-error>
                                 </div>
                 
-                            </mat-form-field>
+                        </mat-form-field>
                         
                             <mat-form-field appearance = "outline" >
     
@@ -38,14 +41,14 @@
                                     <input matInput placeholder="example@site.com" 
                                     formControlName = "cemail">
                                     
-                                    <div *ngIf= "cemail.touched && cemail.invalid || cemail.value !== email.value && email.touched">
-                                            <mat-error *ngIf="cemail.errors.required">You must confirm you email</mat-error> 
+                                    <div *ngIf= "cemail.touched && cemail.invalid && cemail.value !== ''">
+                                            <mat-error *ngIf="cemail.errors.required"> You must confirm you email </mat-error>
                                             <mat-error *ngIf="cemail.errors.email">Email address is not valid</mat-error>
-                                            <mat-error *ngIf="cemail.value !== email.value ">Email address does not match</mat-error>
+                                            <mat-error *ngIf="form.errors.emailMismatch">Email does not match</mat-error>
                                     </div>
                     
-                                </mat-form-field>
-                        <br/>
+                                        </mat-form-field> <br/>
+                        <!-- pass -->
                         <mat-form-field appearance = "outline">
                                 <input matInput placeholder="Password" 
                                 [type] = "passwordVisible ? 'text' : 'password'"
@@ -57,7 +60,7 @@
                                     <mat-icon>{{passwordVisible? 'visibility' : 'visibility_off'}}</mat-icon>
                                 </button>
                                 
-                                <div *ngIf= "pass.touched && pass.invalid">
+                                <div *ngIf= "pass.touched && pass.invalid && pass.value !== ''">
                                         <mat-error *ngIf="pass.errors.required">Password is required!</mat-error> 
                                         <mat-error *ngIf="pass.errors.minlength">password should be a minimum of {{pass.errors.minlength.requiredLength}} characters</mat-error>
                                         <mat-error *ngIf="pass.errors.maxlength">password should be a maximum of {{pass.errors.maxlength.requiredLength}} characters</mat-error>
@@ -65,36 +68,52 @@
                                 </div>
                                 
                             </mat-form-field>  
-                        <mat-form-field appearance = "outline">
-                                <input matInput placeholder="confirm password" 
-                                [type] = "passwordVisible ? 'text' : 'password'"
-                                formControlName = "cpassword">
-                                <mat-label>Confirm Password</mat-label>
-                                <button 
-                                    mat-icon-button matSuffix 
-                                    (click) = "passwordVisible = !passwordVisible">
-                                    <mat-icon>{{passwordVisible? 'visibility' : 'visibility_off'}}</mat-icon>
-                                </button>
-                                
-                                <div *ngIf= "pass.touched && pass.invalid || cpass.value !== pass.value && pass.touched">
-                                        <mat-error *ngIf="pass.errors.required">Password is required!</mat-error> 
-                                        <mat-error *ngIf="pass.errors.minlength">password should be a minimum of {{pass.errors.minlength.requiredLength}} characters</mat-error>
-                                        <mat-error *ngIf="pass.errors.maxlength">password should be a maximum of {{pass.errors.maxlength.requiredLength}} characters</mat-error>
-                                        <mat-error *ngIf="cpass.value !== email.value ">Email address does not match</mat-error>
-        
-                                </div>
-                                
-                            </mat-form-field>
+
+                                <mat-form-field appearance = "outline">
+                                        <input matInput placeholder="confirm password" 
+                                        [type] = "passwordVisible ? 'text' : 'password'"
+                                        formControlName = "cpassword">
+
+                                        <mat-label> Confirm Password</mat-label>
+                                        
+                                        <button 
+                                                mat-icon-button matSuffix 
+                                                (click) = "passwordVisible = !passwordVisible">
+                                                <mat-icon>{{passwordVisible? 'visibility' : 'visibility_off'}}</mat-icon>
+                                        </button>
+                                        
+                                        <div *ngIf= "cpass.touched && cpass.invalid && cpass.value !== ''  ">
+                                                <mat-error *ngIf="cpass.errors.required">Password is required!</mat-error> 
+                                                <mat-error *ngIf="cpass.errors.minlength">password should be a minimum of {{cpass.errors.minlength.requiredLength}} characters</mat-error>
+                                                <mat-error *ngIf="cpass.errors.maxlength">password should be a maximum of {{cpass.errors.maxlength.requiredLength}} characters</mat-error>
+                                                <!-- <mat-error *ngIf="form.errors.passwordMismatch">password does not match</mat-error> -->
+
+
+                                        </div>
+                                        
+                                         </mat-form-field>
                          
-            
-                        <button mat-raised-button color="primary" >Register</button> <br>
-            
+                                         
+                        <button mat-raised-button color="primary"  [disabled] = "!form.valid" (click) = "validateForm()"  >
+                                
+                                <router-outlet>
+                                        <a *ngIf="form.valid === true" routerLink="/login" >{{ linkName }}</a>
+                                        <a *ngIf="form.valid === false"  class = "disabled"> {{ linkName }}</a>
+                                </router-outlet>
+                                
+                        </button> <br>
+
                         
-                        <div class = "horizontalLayout">
-                                                        
-                        </div>
-            
-                    </mat-card-content>
+                       
+                       
+                </mat-card-content>
+
+                    
         </div>
     
-    </mat-card> 
+</mat-card> 
+
+    <div> Valid: {{ form.valid ? '👍' : '👎' }} </div>
+
+    {{ form.errors | json}}
+    {{ cpass.errors | json}}

@@ -1,19 +1,27 @@
-.form_card{
-    background-color: white;
-    margin-top: 10em;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
+/* @import"https://fonts.googleapis.com/icon?family=Material+Icons"
+       */
 
-}
-.cardContent{
-    display: flex;
-    flex-flow: column;
+       .form_card{
+        background-color: white;
+        margin-top: 10em;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+    
+    }
+    .cardContent{
+        display: flex;
+        flex-flow: column;
+      }
+    
+  
+    a {
+      color:white;
+      text-decoration-line: none;
+    }
+    
+    a.disabled {
+      color: gray;
+      cursor: not-allowed;
   }
-
-  .horizontalLayout{
-    display: flex;
-    flex-flow: row;
-    align-items: baseline;
-    justify-content: space-evenly;
-}
+    

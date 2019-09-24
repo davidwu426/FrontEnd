@@ -12,7 +12,7 @@
                         <input matInput placeholder="Username" 
                         formControlName = "username">
                         
-                        <div *ngIf= "name.touched && name.invalid ">
+                        <div *ngIf= "name.touched && name.invalid && name.value !== ''">
                                 <mat-error *ngIf="name.errors.required">Username is required!</mat-error> 
                                 <mat-error *ngIf="name.errors.minlength">minimum length should be a minimum of {{name.errors.minlength.requiredLength}} characters</mat-error>
                         </div>
@@ -30,7 +30,7 @@
                             <mat-icon>{{passwordVisible? 'visibility' : 'visibility_off'}}</mat-icon>
                         </button>
                         
-                        <div *ngIf= "pass.touched && pass.invalid">
+                        <div *ngIf= "pass.touched && pass.invalid && pass.value !== '' " >
                                 <mat-error *ngIf="pass.errors.required">Password is required!</mat-error> 
                                 <mat-error *ngIf="pass.errors.minlength">password should be a minimum of {{pass.errors.minlength.requiredLength}} characters</mat-error>
                                 <mat-error *ngIf="pass.errors.maxlength">password should be a maximum of {{pass.errors.maxlength.requiredLength}} characters</mat-error>
@@ -40,12 +40,21 @@
                     </mat-form-field>
                     <br/>
         
-                    <button mat-raised-button color="primary" style="margin-right:5px;">login</button> <br>
+                    <button mat-raised-button color="primary"  [disabled] = "!frm.valid" (click) = "validateForm()"  >
+                                
+                            <router-outlet>
+                                    <a *ngIf="frm.valid === true" routerLink="/home">Login</a>
+                                    <a *ngIf="frm.valid === false"  class = "disabled"> Login</a>
+                            </router-outlet>
+                            
+                    </button> <br>
         
                     <mat-checkbox>Remember me</mat-checkbox> <br>
                     
                     <div class = "horizontalLayout">
-                        <button mat-raised-button color="primary" style="margin-right:5px;">Signup</button> <br>
+                        <button mat-raised-button color="primary" >Signup</button> <br>
+
+                      
                         <a href="">Forgot password?</a>
                     </div>
         
@@ -54,3 +63,5 @@
 
 </mat-card> 
 
+<div> Valid: {{ frm.valid ? '👍' : '👎' }} </div>
+{{ frm.errors | json}}

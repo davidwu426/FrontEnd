@@ -32,3 +32,13 @@ TODO: wait to add specific implementation of this component fi app module
     align-items: baseline;
     justify-content: space-between;
 }
+
+a {
+    color:white;
+    text-decoration-line: none;
+  }
+  
+  a.disabled {
+    color: gray;
+    cursor: not-allowed;
+}

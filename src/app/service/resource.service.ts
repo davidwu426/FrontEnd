@@ -63,6 +63,8 @@ export class ResourceService {
       resourceName: resourceName,
       resourceCode: resourceCode
     };
+
+    //TODO: remove login
     //console.log(obj);
     this.http.post(`${this.baseURL}/resource`, obj)
         .subscribe(res => console.log('Done'));

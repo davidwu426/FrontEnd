@@ -1,17 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { FormulaComponent } from '../components/formula/formula.component';
+import { LoginComponent } from '../components/login/login.component';
+import { SignupComponent } from '../components/signup/signup.component';
 import { ResourceComponent } from '../components/resource/resource.component';
 import { FormulaFieldsComponent } from '../components/formula-fields/formula-fields.component';
+import { NavbarComponent } from '../components/navbar/navbar.component';
 
+const appRoutes: Routes = [
+  {path: 'login', component: LoginComponent},
+  {path: '', component: LoginComponent},
+  {path: 'home', component: NavbarComponent},
+  {path: 'register', component: SignupComponent},
+  {path : 'formula', component : FormulaComponent},
 
-const appRoutes : Routes = [
-  {path : "formula", component : FormulaComponent},
+  {path : 'resources', component : ResourceComponent},
 
-  {path : "resources", component : ResourceComponent},
-
-  {path : "formula/fields", component : FormulaFieldsComponent},
-]
+  {path : 'formula/fields', component : FormulaFieldsComponent},
+];
 
 @NgModule({
   declarations: [],
