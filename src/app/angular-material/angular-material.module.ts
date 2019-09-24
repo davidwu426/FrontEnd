@@ -40,6 +40,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
+import { MatSelectFilterModule } from 'mat-select-filter';
 
 
 const CustomAngularMaterial = [MatButtonModule, MatSidenavModule, MatListModule, MatToolbarModule,
@@ -85,7 +86,9 @@ const AngularTableSearch = [A11yModule,
   MatTooltipModule,
   MatTreeModule,
   PortalModule,
-  ScrollingModule,];
+  ScrollingModule,
+  MatSelectFilterModule,
+];
 
 
 @NgModule({

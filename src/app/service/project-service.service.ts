@@ -5,7 +5,7 @@ import { IProject } from '../components/project/projectInterface' ;
 import { IResource } from '../components/project/resourceInterface';
 import { IProjectResource } from '../components/project/projectResourceInterface';
 import { MatTableDataSource } from '@angular/material';
-import { Observable,throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -13,9 +13,11 @@ import { Subject } from 'rxjs';
 })
 
 export class ProjectService {
-  private _urlr: string = "/assets/resource.json";
+  baseURL: string = "http://192.168.1.122:8080/RM";
+  // private _urlr: string = "/assets/resource.json";
   private _urlpr: string = "/assets/projectRsource.json";
-  private _urlp: string = "/assets/project.json";
+  // private _urlp: string = "/assets/project.json";
+
   private addRowsSource = new Subject<MatTableDataSource<IResource>>(); //new MatTableDataSource<IEmployee>()
   private currentProjectId = new Subject<IProject>();
 
@@ -32,15 +34,20 @@ export class ProjectService {
   constructor(private http: HttpClient) { }
 
   getResource(): Observable<IResource[]>{
-    return this.http.get<IResource[]>(this._urlr);
+    return this.http.get<IResource[]>(`${this.baseURL}/resource`); //this._urlr); //
   }
 
+  getResourceByProjectId(id: number): Observable<IResource[]>{
+    return this.http.get<IResource[]>(`${this.baseURL}/project/${id}`);  // this._urlpr); //
+  }
+
+
   getProjectResource(): Observable<IProjectResource[]>{
-    return this.http.get<IProjectResource[]>(this._urlpr);
+    return this.http.get<IProjectResource[]>(this._urlpr); 
   }
 
   getProject(): Observable<IProject[]>{
-    return this.http.get<IProject[]>(this._urlp);
+    return this.http.get<IProject[]>(`${this.baseURL}/project`);  // this._urlp); //
   }
 
   getRows( projectTable: MatTableDataSource<IResource>){
@@ -53,13 +60,10 @@ export class ProjectService {
   
 
   postProjectResource(prRelation: IProjectResource[]){
-
-    return this.http.post<IProjectResource[]>(this._urlpr, prRelation).subscribe(res => console.log(res));
+    for(var i = 0; i< prRelation.length ; i++){
+      let url = "http://192.168.1.122:8080/RM/project/" + prRelation[i].projectId + "/resource/" + prRelation[i].resourceId;
+      return this.http.post<IProjectResource[]>(url, null).subscribe(res => console.log(res));
+    }
   }
 
-  // addNewColumn(newCol){
-  //   let url = "http://192.168.1.122:8080/RM/projectResource/"+PROJECT_DATA.projectId+"/column";
-    
-  //   this.http.post<InputColumn>(url, newCol).subscribe(res => console.log(res));
-  // }
 }

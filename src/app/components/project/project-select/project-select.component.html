@@ -1,10 +1,26 @@
-<mat-form-field>
-    <mat-select [(value)]= "default" (selectionChange)= "changeProjectId($event)" >
-    <mat-option *ngFor = "let project of dataSource.data" [value] = "project" 
-                [routerLink] = "['/project']" [queryParams] = "{id: project.projectId}" routerLinkActive = "active">
-                {{project.projectName}} 
-        </mat-option>
-    </mat-select>
-</mat-form-field>
-<app-project-rsource></app-project-rsource>
-<app-project-row-manager></app-project-row-manager>
+<!-- <mat-form-field></mat-form-field> -->
+<div class="pjs">
+    <div  class = "select" >
+    <!-- <mat-form-field> -->
+        <mat-select [(value)]= "default" (selectionChange)= "changeProjectId($event)" >
+                <input class = "searchBar" focused="'true'" type="text" (keyup)="search($event.target.value)" placeholder="search" autocomplete="off" >
+                <mat-divider></mat-divider>
+                <mat-option *ngFor = "let project of dataSource.data" [value] = "project" 
+                    [routerLink] = "['/project']" [queryParams] = "{id: project.projectId}" routerLinkActive = "active">
+                    {{project.projectName}} 
+
+            </mat-option>
+        </mat-select>
+    <!-- </mat-form-field> -->
+    </div>
+</div>
+
+
+<div class = "pjtable">
+    <div class = "inline">
+        <app-project-resource></app-project-resource>
+    </div>
+    <div class = "inline">
+        <app-project-row-manager></app-project-row-manager>
+    </div>
+</div>

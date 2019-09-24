@@ -6,13 +6,13 @@ header{
     line-height: 50px;
 }
 
-.delete{
+.add{
     float: right;
     height: 30px;
     width : 30px;
     margin: 10px;
+    background: 'assets/img/12.jpg';
 }
-
 
 table{
     /* width: 100%; */
@@ -20,14 +20,14 @@ table{
     height: 300px;
 }
 
+mat-elevation-z8{
+    margin-left: 100px
+}
+
 mat-header-cell{
     background-color:lightgrey;
 }
 
-.submit{
-    float: right;
-    height: 30px;
-    width : 100px;
-    margin: 10px;
-    padding-top:10px; 
+::ng-deep .mat-checkbox-checked .mat-checkbox-background{
+    background-color: coral !important;
 }
