@@ -48,6 +48,7 @@ import { SignupComponent } from './components/signup/signup.component';
     FormulaFieldsComponent,
     ProjectRsourceComponent,
     SignupComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
