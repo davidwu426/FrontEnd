@@ -19,12 +19,9 @@ const appRoutes: Routes = [
   {path : 'resources', component : ResourceComponent},
 
   {path : 'formula/fields', component : FormulaFieldsComponent},
+  {path : 'project', component : ProjectSelectComponent},
 ];
 
-  {path : "formula/fields", component : FormulaFieldsComponent},
-
-  {path : "project", component : ProjectSelectComponent}
-]
 
 @NgModule({
   declarations: [],
