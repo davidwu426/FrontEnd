@@ -7,13 +7,13 @@ import { IResource } from '../resourceInterface';
 // import { resource } from 'selenium-webdriver/http';
 
 @Component({
-  selector: 'app-project-rsource',
-  templateUrl: './project-rsource.component.html',
-  styleUrls: ['./project-rsource.component.css']
+  selector: 'app-project-resource',
+  templateUrl: './project-resource.component.html',
+  styleUrls: ['./project-resource.component.css']
 })
 
 export class ProjectRsourceComponent implements OnInit {
-  displayedColumns: string[] = ['select','name' , 'id'];
+  displayedColumns: string[] = ['select', 'resourceName' , 'resourceId'];
   dataSource = new MatTableDataSource<IResource>();
 
   constructor(private _projectService: ProjectService) { }
@@ -23,11 +23,11 @@ export class ProjectRsourceComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this._projectService.getResource().subscribe( resource => 
       { this.dataSource.data = resource;
-        this.dataSource.data = this.dataSource.data.slice();
+        // this.dataSource.data = this.dataSource.data.slice();
+        console.log(this.dataSource.data);
       });
-
-
   }
+
 selection = new SelectionModel<IResource>(true, []);
   @ViewChild(MatPaginator,{static:true}) paginator: MatPaginator;
 

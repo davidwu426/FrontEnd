@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectRsourceComponent } from './project-rsource.component';
+import { ProjectRsourceComponent } from './project-resource.component';
 
 describe('ProjectRsourceComponent', () => {
   let component: ProjectRsourceComponent;

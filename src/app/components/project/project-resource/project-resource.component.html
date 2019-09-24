@@ -1,8 +1,9 @@
 <div class="mat-elevation-z8">
     <header> Resource Catalog
-      <button (click)="getSelectResource()"> add </button>
+      <!-- <button src = 'assets/img/12.jpg' (click)="getSelectResource()" class = "add" > </button> -->
+      <input type="image" src = 'assets/img/add.jpg' (click)="getSelectResource()" class = "add">
     </header>
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="select">
             <mat-header-cell *matHeaderCellDef>
               <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -22,12 +23,12 @@
           </mat-cell>
           </ng-container>
   
-      <ng-container matColumnDef="name">
+      <ng-container matColumnDef="resourceName">
           <mat-header-cell *matHeaderCellDef> PROJECT NAME</mat-header-cell>
           <mat-cell *matCellDef="let element" >{{element.resourceName}}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="id">
+      <ng-container matColumnDef="resourceId">
           <mat-header-cell *matHeaderCellDef>PROJECT CODE</mat-header-cell>
           <mat-cell *matCellDef="let element" >{{element.resourceId}}</mat-cell>
         </ng-container>

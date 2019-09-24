@@ -16,7 +16,7 @@ import { IProjectResource } from '../projectResourceInterface';
 
 export class ProjectRowManagerComponent implements OnInit {
   
-  displayedColumns: string[] = ['select','name' , 'id'];
+  displayedColumns: string[] = ['select','resourceName' , 'resourceId'];
   dataSource = new MatTableDataSource<IResource>();
   
   prSource = new MatTableDataSource<IProjectResource>();
@@ -31,9 +31,20 @@ export class ProjectRowManagerComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this._projectService.currentProjectId$.subscribe(project => {
       this.currentProjectId = project.projectId;
+
+      // this._projectService.getResourceByProjectId(this.currentProjectId).subscribe(data => 
+      // {
+      //   console.log("pjID:   "+this.currentProjectId);
+      //   this.dataSource.data = data;
+      //   for(var i = 0;i<data.length;i++){ //this.dataSource.
+      //   console.log("pj:   "+i+"is:  "+ data[i].resourceId +" and "+ data[i].resourceName );
+      //   }
+      // });
+
+      
       let tempData = new MatTableDataSource<IResource>();
       this._projectService.getProjectResource().subscribe(data => 
-        {
+      {
         this.prSource.data = data
         this.prSource.data.forEach( prRelation =>
         {
@@ -63,9 +74,20 @@ export class ProjectRowManagerComponent implements OnInit {
           });
         });
       }); 
-    })
-    
-  }
+      this._projectService.getResourceByProjectId(this.currentProjectId).subscribe(data => 
+        {
+          this.dataSource.data = data;
+        });
+
+
+
+
+      })
+    }
+
+
+      
+
 
   selection = new SelectionModel<IResource>(true, []);
   @ViewChild(MatPaginator,{static:true}) paginator: MatPaginator;
@@ -94,7 +116,6 @@ export class ProjectRowManagerComponent implements OnInit {
 
   removeSelectRows(){
     this.selection.selected.forEach(item => {
-      console.log("im here");
       let index: number = this.dataSource.data.findIndex(d => d === item);
       this.dataSource.data.splice(index,1);
       this.dataSource = new MatTableDataSource<IResource>(this.dataSource.data);

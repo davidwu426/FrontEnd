@@ -7,11 +7,12 @@ import { IconsModule } from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Modules
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 
 //Services
 import {ColumnsService} from './service/columns.service';
 import { CellsService } from './service/cells.service';
+import {ProjectService} from './service/project-service.service';
 
 //Components
 import { AppComponent } from './app.component';
@@ -31,9 +32,13 @@ import { AngularMaterialModule} from './angular-material/angular-material.module
 import { RoutingModule } from './routing/routing.module';
 import { ResourceComponent } from './components/resource/resource.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { ProjectRowManagerComponent } from './components/project/project-row-manager/project-row-manager.component';
+import { ProjectRsourceComponent } from './components/project/project-resource/project-resource.component';
+import { ProjectSelectComponent } from './components/project/project-select/project-select.component';
 
-// error handling
-// import { InterceptorService } from './service/interceptor.service';
+
+
+
 
 
 @NgModule({
@@ -64,10 +69,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
   providers: [
     ColumnsService,
     CellsService,
-    // { provide: HTTP_INTERCEPTORS,
-    //   useClass: InterceptorService,
-    //   multi: true
-    // }
+    ProjectService,
   ],
   bootstrap: [AppComponent]
 })
